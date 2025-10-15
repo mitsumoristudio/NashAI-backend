@@ -4,6 +4,7 @@ using NashAI_app.Services.Ingestion;
 using OpenAI;
 using System.ClientModel;
 using DotNetEnv;
+using Microsoft.Data.Sqlite;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +14,25 @@ Env.Load();
 // Add Environmental variables
 builder.Configuration.AddEnvironmentVariables();
 
+// Add CORS services to container for REACT frontend to call the API
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevCorsPolicy",
+        policy => policy.WithOrigins("http://localhost:3000")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+    );
+});
+
 // Add Service
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.IgnoreNullValues = true;
+    });
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -44,6 +62,19 @@ var vectorStorePath = Path.Combine(AppContext.BaseDirectory, "vector-store.db");
 var vectorStoreConnectionString = $"Data Source={vectorStorePath}";
 builder.Services.AddSqliteCollection<string, IngestedChunk>("data-nashai_app-chunks", vectorStoreConnectionString);
 builder.Services.AddSqliteCollection<string, IngestedDocument>("data-nashai_app-documents", vectorStoreConnectionString);
+
+// Open Sqlite
+using var connection = new SqliteConnection($"Data Source={vectorStorePath}");
+connection.Open();
+
+var command = connection.CreateCommand();
+command.CommandText ="SELECT * FROM [data-nashai_app-chunks] LIMIT 5;";
+
+using var reader = command.ExecuteReader();
+while (reader.Read())
+{
+    Console.WriteLine(reader.GetString(0));
+}
 
 // Data Ingestion Service
 builder.Services.AddScoped<DataIngestor>();
