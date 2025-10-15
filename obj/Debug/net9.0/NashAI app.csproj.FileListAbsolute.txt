@@ -116,3 +116,12 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.pdb
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.genruntimeconfig.cache
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/ref/NashAI app.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.OpenApi.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SixLabors.Fonts.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SixLabors.ImageSharp.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SixLabors.ImageSharp.Drawing.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.MvcApplicationPartsAssemblyInfo.cs
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.sourcelink.json
