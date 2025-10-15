@@ -74,18 +74,7 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rjimswa.dswa.cache.json
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rjsmrazor.dswa.cache.json
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/Components/Layout/LoadingSpinner.razor.rz.scp.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/Components/Layout/MainLayout.razor.rz.scp.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/Components/Layout/SurveyPrompt.razor.rz.scp.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/Components/Pages/Chat/Chat.razor.rz.scp.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/Components/Pages/Chat/ChatCitation.razor.rz.scp.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/Components/Pages/Chat/ChatHeader.razor.rz.scp.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/Components/Pages/Chat/ChatInput.razor.rz.scp.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/Components/Pages/Chat/ChatMessageItem.razor.rz.scp.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/Components/Pages/Chat/ChatMessageList.razor.rz.scp.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/Components/Pages/Chat/ChatSuggestions.razor.rz.scp.css
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/bundle/NashAI app.styles.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/projectbundle/NashAI app.bundle.scp.css
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/zn349qvchr-nf3i5kmnu8.gz
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/bnx3t2xvtn-u46q3xrglm.gz
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/ibp51s2gj9-dv5t0lo4q1.gz
@@ -102,10 +91,6 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/vlfofsq8in-e7iarkq29p.gz
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/533a7dzphq-ehm2826cnl.gz
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/o4g8setpsi-3yynpeuhzu.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/qd9on0lext-q4hnlf4z6i.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/b0sgvu4hni-3ousqu763o.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/xak5nadctw-qrjgr6qjjf.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/iv6aakclby-qrjgr6qjjf.gz
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.build.json
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.build.json.cache
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.development.json

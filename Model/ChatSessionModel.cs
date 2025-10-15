@@ -6,5 +6,5 @@ public class ChatSessionModel
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public string Title { get; set; } = "New Chat";
     public List<ChatMessageModel> Messages { get; set; } = new List<ChatMessageModel>();
-    public int? TokenUser { get; set; }
+
 }

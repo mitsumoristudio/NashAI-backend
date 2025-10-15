@@ -12,6 +12,6 @@ public class ApiEndPoints
 
         public const string? SEARCH_URL_CHATS = $"search";
 
-        public const string GET_CONVERSATION_HISTORY = $"history/{{sessionid}}";
+     //   public const string GET_CONVERSATION_HISTORY = $"history/{{sessionid}}";
     }
 }

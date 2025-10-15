@@ -1,5 +1,4 @@
 using Microsoft.Extensions.AI;
-using NashAI_app.Components;
 using NashAI_app.Services;
 using NashAI_app.Services.Ingestion;
 using OpenAI;
@@ -18,8 +17,6 @@ builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-
 
 // Not using Razor Pages
 //builder.Services.AddRazorComponents().AddInteractiveServerComponents();
@@ -63,14 +60,6 @@ builder.Services.AddEmbeddingGenerator(embeddingGenerator);
 // Build the App
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-// if (!app.Environment.IsDevelopment())
-// {
-//     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-//     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-//     app.UseHsts();
-// }
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -82,13 +71,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Razor Pages dependencies
-// app.UseAntiforgery();
-
-// app.UseStaticFiles();
-//app.MapRazorComponents<App>()
-//    .AddInteractiveServerRenderMode();
-
 // By default, we ingest PDF files from the /wwwroot/Data directory. You can ingest from
 // other sources by implementing IIngestionSource.
 // Important: ensure that any content you ingest is trusted, as it may be reflected back
@@ -97,6 +79,6 @@ await DataIngestor.IngestDataAsync(
     app.Services,
     new PDFDirectorySource(Path.Combine(builder.Environment.WebRootPath, "Data")));
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Hello User!");
 
 app.Run();

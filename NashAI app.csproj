@@ -20,4 +20,21 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Components\App.razor" />
+    <_ContentIncludedByDefault Remove="Components\Layout\LoadingSpinner.razor" />
+    <_ContentIncludedByDefault Remove="Components\Layout\MainLayout.razor" />
+    <_ContentIncludedByDefault Remove="Components\Layout\SurveyPrompt.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\Chat\Chat.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatCitation.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatHeader.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatInput.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatMessageItem.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatMessageList.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatSuggestions.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\Error.razor" />
+    <_ContentIncludedByDefault Remove="Components\Routes.razor" />
+    <_ContentIncludedByDefault Remove="Components\_Imports.razor" />
+  </ItemGroup>
+
 </Project>
