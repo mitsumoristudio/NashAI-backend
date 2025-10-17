@@ -17,7 +17,7 @@ builder.Configuration.AddEnvironmentVariables();
 // Add CORS services to container for REACT frontend to call the API
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("DevCorsPolicy",
+    options.AddPolicy("AllowReactDev",
         policy => policy.WithOrigins("http://localhost:3000")
             .AllowAnyMethod()
             .AllowAnyHeader()
@@ -97,7 +97,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowReactDev");
+
 app.UseHttpsRedirection();
+
 app.UseAuthorization();
 
 app.MapControllers();

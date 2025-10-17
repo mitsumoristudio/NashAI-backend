@@ -66,7 +66,7 @@ public class PDFDirectorySource(string sourceDirectory) : IIngestionSource
         var pageText = string.Join(Environment.NewLine + Environment.NewLine,
             textBlocks.Select(t => t.Text.ReplaceLineEndings(" ")));
 
-#pragma warning disable SKEXP0050 // Type is for evaluation purposes only
+#pragma warning disable SKEXP0050 
         return TextChunker.SplitPlainTextParagraphs([pageText], 200)
             .Select((text, index) => (pdfPage.Number, index, text));
 #pragma warning restore SKEXP0050 // Type is for evaluation purposes only
