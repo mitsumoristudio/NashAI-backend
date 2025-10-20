@@ -5,6 +5,7 @@ using OpenAI;
 using System.ClientModel;
 using DotNetEnv;
 using Microsoft.Data.Sqlite;
+using OpenAI.Chat;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,6 +82,9 @@ builder.Services.AddScoped<DataIngestor>();
 
 // Semantic Search
 builder.Services.AddSingleton<SemanticSearch>();
+
+// Rag Service
+builder.Services.AddScoped<IRagService, RagService>();
 
 // Add Chat Client
 builder.Services.AddChatClient(chatClient).UseFunctionInvocation().UseLogging();

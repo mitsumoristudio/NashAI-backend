@@ -1,3 +1,5 @@
+using SixLabors.ImageSharp.PixelFormats;
+
 namespace NashAI_app.utils;
 
 public class ApiEndPoints
@@ -12,8 +14,8 @@ public class ApiEndPoints
 
         public const string? SEARCH_URL_CHATS = $"search";
 
-        public const string SEND_SEMANTIC_SEARCH = $"semanticsend";
-
+        public const string SEMANTIC_SEARCH_URLS = $"semantic_search";
+        
         //   public const string GET_CONVERSATION_HISTORY = $"history/{{sessionid}}";
     }
 }

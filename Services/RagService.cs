@@ -1,9 +1,11 @@
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.AI;
 using NashAI_app.Model;
 
 namespace NashAI_app.Services;
 
-public class RagService
+public class RagService : IRagService
 {
     private readonly IChatClient _chatClient;
     private readonly SemanticSearch _semanticSearch;
@@ -14,12 +16,12 @@ public class RagService
         _semanticSearch = semanticSearch;
     }
 
-    public async Task<string> GetRagResponseAsync(ChatSessionModel session)
+    public async Task<string> GetRagResponseAsync(ChatSessionModel session,  [FromQuery] string? filesystem)
     {
         var userMessage = session.Messages.LastOrDefault(role => role.Role == ChatRole.User);
         if (userMessage == null) return "No user was found";
 
-        var retrievedDocs = await _semanticSearch.SearchAsync(userMessage.MessageContent, "N/A", 5);
+        var retrievedDocs = await _semanticSearch.SearchAsync(userMessage.MessageContent, filesystem, 5);
         var context = string.Join("\n\n", retrievedDocs.Select(d => d.Text));
 
         var systemMessage = new ChatMessage(ChatRole.System, $"Use this context:\n{context}");
@@ -28,6 +30,34 @@ public class RagService
         chatMessages.AddRange(session.Messages.Select(m => new ChatMessage(m.Role, m.MessageContent)));
 
         var response = await _chatClient.GetResponseAsync(chatMessages);
-        return response?.ToString() ?? "No response found";
+
+        return response?.ToString() ??  "No response found";
+    }
+
+    public async Task<string> GenerateResponseAsync(string query, string sessionId)
+    {
+        // Retrieve Context
+        var retrievedDocs = await _semanticSearch.SearchAsync(query, null, 3);
+
+        var contextBuilder = new StringBuilder();
+        foreach (var doc in retrievedDocs)
+        {
+            contextBuilder.AppendLine(doc.Text);
+            contextBuilder.AppendLine("\n---\n");
+        }
+        
+        // Create prompt
+        var systemPrompt = new ChatMessage(ChatRole.System,
+            $"You are an AI assistant. Use the following context to answer accurately and concisely.\\n\\n{{contextBuilder}}");
+
+        var userPrompt = new ChatMessage(ChatRole.User, query);
+        
+        var messages = new List<ChatMessage> { systemPrompt, userPrompt };
+        
+        // Generate a response
+        var response = await _chatClient.GetResponseAsync(messages);
+        
+        return response?.ToString() ??  "No response was found";
+
     }
 }
