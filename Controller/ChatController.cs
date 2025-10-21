@@ -62,6 +62,21 @@ public class ChatController: ControllerBase
     [HttpPost(ApiEndPoints.Chats.SEMANTIC_SEARCH_URLS)]
     public async Task<IActionResult> SendSemanticSearch([FromBody] ChatSessionModel session)
     {
+         bool IsRelevant(string text, string query, int minOverlap = 2)
+        {
+            var queryWords = query
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(w => w.ToLowerInvariant())
+                .ToHashSet();
+
+            var textWords = text
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(w => w.ToLowerInvariant());
+
+            int overlap = textWords.Count(w => queryWords.Contains(w));
+            return overlap >= minOverlap;
+        }
+         
         var userMessage = session.Messages.LastOrDefault(p => p.Role == ChatRole.User);
         if (userMessage == null)
             return BadRequest("User was not found");
@@ -70,16 +85,66 @@ public class ChatController: ControllerBase
         var query = userMessage.MessageContent;
         
        var retrievedDocs = await _semanticSearch.SearchAsync(query, null, 4);
-      
+
+       
+       if (retrievedDocs.Count == 0)
+       {
+           return Ok(new
+           {
+               session.SessionId,
+               role = ChatRole.Assistant.ToString(),
+               messageContent = "I couldn’t find relevant information for your question in the available sources.",
+               createdAt = DateTime.UtcNow,
+               sources = new object[] { }
+           });
+       }
+       
+       string systemPrompt;
+       bool contextUsed = retrievedDocs.Any();
+
+       if (contextUsed)
+       {
+           // 🧩 Combine top chunks into one context block
+           var contextText = string.Join("\n\n---\n\n", retrievedDocs.Select(r => r.Text));
+
+           systemPrompt = @$"
+You are a precise and factual assistant.
+Use ONLY the following context to answer the user question.
+If the context does not contain enough information, say:
+'I could not find relevant information in the provided sources.'
+
+### Context:
+{contextText}";
+       }
+       else
+       {
+           // 🚫 No relevant context found
+           systemPrompt = @"
+You are a precise assistant.
+There was no relevant information retrieved from the knowledge base.
+Kindly inform the user that no relevant results were found.";
+       }
+       
         // Build Context text from top results
-        var contextText = string.Join("\n\n", retrievedDocs.Select(r => r.Text));
-        
-        // Add system prompt to include context
-        var systemPrompt = new ChatMessage(ChatRole.System, 
-            $"You are a helpful assistant. Use the following context to answer the question.\n\nContext:\n{contextText}");
+//         var contextText = string.Join("\n\n", retrievedDocs.Select(r => r.Text));
+//         
+//         // Add system prompt to include context
+//         var systemPrompt = new ChatMessage(ChatRole.System,
+//             @$"You are a precise and factual assistant. 
+// Use ONLY the information from the provided context to answer.
+// If the context does not contain enough detail, respond with:
+// 'I could not find relevant information in the provided sources.'
+//
+// ### Context:
+// {contextText}");
         
         // Combine system + chat history + user message
-        var chatMessages = new List<ChatMessage> { systemPrompt };
+      //  var chatMessages = new List<ChatMessage> { systemPrompt };
+      var chatMessages = new List<ChatMessage>
+      {
+          new ChatMessage(ChatRole.System, systemPrompt)
+      };
+      
         chatMessages.AddRange(session.Messages.Select(m => new ChatMessage(m.Role, m.MessageContent)));
         
         // Get AI response
@@ -96,23 +161,36 @@ public class ChatController: ControllerBase
 
         // Add to session (in memory for now)
         session.Messages.Add(assistantMessage);
-
+        
         // ✅ Return structured JSON that React expects
-        return Ok(new
+        if (contextUsed)
         {
-            sessionId = session.SessionId,
-            role = assistantMessage.Role.ToString(),
-            messageContent = assistantMessage.MessageContent,
-            createdAt = assistantMessage.CreatedAt,
-            sources = retrievedDocs.Select(r => new
+            return Ok(new
+                   {
+                       sessionId = session.SessionId,
+                       role = assistantMessage.Role.ToString(),
+                       messageContent = assistantMessage.MessageContent,
+                       createdAt = assistantMessage.CreatedAt,
+                       contextUsed = true,
+                       sources = retrievedDocs.Select(r => new
+                       {
+                           r.DocumentId,
+                           r.PageNumber,
+                           snippet = r.Text.Length > 250 ? r.Text[..250] + "..." : r.Text
+                       })
+                   }); 
+        } else {
+            return Ok(new
             {
-                r.DocumentId,
-                r.PageNumber,
-                snippet = r.Text.Length > 250 ? r.Text[..250] + "..." : r.Text
-            })
-        });
+                sessionId = session.SessionId,
+                role = assistantMessage.Role.ToString(),
+                messageContent = assistantMessage.MessageContent,
+                createdAt = assistantMessage.CreatedAt,
+                contextUsed = false
+            });
+        }
+       
     }
-    
     
     [HttpGet(ApiEndPoints.Chats.SEARCH_URL_CHATS)]
     public async Task<IActionResult> SearchAsyncMessage([FromQuery] string query, [FromQuery] string? filesystem)
