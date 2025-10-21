@@ -85,6 +85,7 @@ public class ChatController: ControllerBase
         var query = userMessage.MessageContent;
         
        var retrievedDocs = await _semanticSearch.SearchAsync(query, null, 4);
+       var relevantDocs = retrievedDocs.Where(d => d.Score >= 0.75).ToList();
 
        
        if (retrievedDocs.Count == 0)
