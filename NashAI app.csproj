@@ -18,23 +18,30 @@
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.11" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.5.0" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.8" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.14.0" />
+    <PackageReference Include="Npgsql" Version="9.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Components\App.razor" />
-    <_ContentIncludedByDefault Remove="Components\Layout\LoadingSpinner.razor" />
-    <_ContentIncludedByDefault Remove="Components\Layout\MainLayout.razor" />
-    <_ContentIncludedByDefault Remove="Components\Layout\SurveyPrompt.razor" />
-    <_ContentIncludedByDefault Remove="Components\Pages\Chat\Chat.razor" />
-    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatCitation.razor" />
-    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatHeader.razor" />
-    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatInput.razor" />
-    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatMessageItem.razor" />
-    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatMessageList.razor" />
-    <_ContentIncludedByDefault Remove="Components\Pages\Chat\ChatSuggestions.razor" />
-    <_ContentIncludedByDefault Remove="Components\Pages\Error.razor" />
-    <_ContentIncludedByDefault Remove="Components\Routes.razor" />
-    <_ContentIncludedByDefault Remove="Components\_Imports.razor" />
+  
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Database\" />
   </ItemGroup>
 
 </Project>
