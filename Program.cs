@@ -12,6 +12,8 @@ using Microsoft.IdentityModel.Tokens;
 using NashAI_app.utils;
 using OpenAI.Chat;
 using Project_Manassas.Database;
+using Microsoft.Extensions.VectorData;
+using Microsoft.SemanticKernel.Connectors.SqliteVec;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -98,7 +100,7 @@ builder.Services.AddDbContext<ProjectContext>(options =>
  */
 
 // Setting up OpenAI API
-var credential = new ApiKeyCredential(builder.Configuration["OpenAI:ApiKey"]);
+var credential = new ApiKeyCredential(builder.Configuration["OPENAI_API_KEY"]);
 var openAIOptions = new OpenAIClientOptions()
 {
     Endpoint = new Uri("https://api.openai.com/v1")
@@ -127,6 +129,10 @@ while (reader.Read())
 {
     Console.WriteLine(reader.GetString(0));
 }
+
+Console.WriteLine($"SQLite DB Path: {connection}");
+Console.WriteLine($"File exists: {File.Exists("/src/data/data-nashai_app-chunks.db")}");
+
 
 // Data Ingestion Service
 builder.Services.AddScoped<DataIngestor>();
