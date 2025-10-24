@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NashAI app")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92a6c585d41d176f465ffe8fdde2096259248f71")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6445dcff8cfa43594e073e65711a2907adaea05a")]
 [assembly: System.Reflection.AssemblyProductAttribute("NashAI app")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NashAI app")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

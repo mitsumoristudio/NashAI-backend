@@ -114,21 +114,15 @@ var embeddingGenerator = ghModelsClient.GetEmbeddingClient("text-embedding-3-sma
 // Adding SqlLite Vectorpath
 var vectorStorePath = Path.Combine(AppContext.BaseDirectory, "vector-store.db");
 
+// Ensure folder exists
+Directory.CreateDirectory(Path.GetDirectoryName(vectorStorePath)!);
+
 if (!File.Exists(vectorStorePath))
 {
-    Console.WriteLine($"Vector store not found at: {vectorStorePath}");
-    return;
+    Console.WriteLine($"Vector store not found at {vectorStorePath}. Creating a new one...");
+    using var fs = File.Create(vectorStorePath); // create empty file
+    fs.Close();
 }
-
-
-
-
-
-
-
-
-
-
 
 var vectorStoreConnectionString = $"Data Source={vectorStorePath}";
 builder.Services.AddSqliteCollection<string, IngestedChunk>("data-nashai_app-chunks", vectorStoreConnectionString);
