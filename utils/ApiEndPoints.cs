@@ -21,6 +21,8 @@ public class ApiEndPoints
         public const string GET_URL_MYPROJECT = $"{user}/{{userId:guid}}";
         
         public const string DELETE_URL_PROJECTS = $"{{id:guid}}";
+        
+        public const string? SEARCH_BY_NAME = $"search";
 
         private const string user = "user";
     }

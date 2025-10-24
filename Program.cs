@@ -3,9 +3,15 @@ using NashAI_app.Services;
 using NashAI_app.Services.Ingestion;
 using OpenAI;
 using System.ClientModel;
+using System.Text;
 using DotNetEnv;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using NashAI_app.utils;
 using OpenAI.Chat;
+using Project_Manassas.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,11 +37,56 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.IgnoreNullValues = true;
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
     });
 
+builder.Services.AddApplicationServices();
 
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// JWT settings
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+
+builder.Services.AddAuthentication(option =>
+    {
+        option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+    })
+    .AddJwtBearer(option =>
+    {
+        option.RequireHttpsMetadata = false;
+        option.SaveToken = true;
+        option.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwtSettings?.Issuer,
+        
+            ValidateAudience = true,
+            ValidAudience = jwtSettings?.Audience,
+        
+            ValidateLifetime = true,
+        
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings!.SecretKey))
+            // Tells ASP.NET Core ow to validate incoming JWT tokens
+        
+        };
+    });
+
+builder.Services.AddControllersWithViews();
+
+// Setting up Neon database
+var neonAPIKey = Environment.GetEnvironmentVariable("NEON_API_KEY");
+
+builder.Services.AddDbContext<ProjectContext>(options =>
+{
+    options.UseNpgsql(neonAPIKey);
+});
 
 // Not using Razor Pages
 //builder.Services.AddRazorComponents().AddInteractiveServerComponents();
@@ -83,9 +134,6 @@ builder.Services.AddScoped<DataIngestor>();
 // Semantic Search
 builder.Services.AddSingleton<SemanticSearch>();
 
-// Rag Service
-builder.Services.AddScoped<IRagService, RagService>();
-
 // Add Chat Client
 builder.Services.AddChatClient(chatClient).UseFunctionInvocation().UseLogging();
 
@@ -101,9 +149,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
+app.UseRouting();
+
 app.UseCors("AllowReactDev");
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -116,6 +173,9 @@ app.MapControllers();
 await DataIngestor.IngestDataAsync(
     app.Services,
     new PDFDirectorySource(Path.Combine(builder.Environment.WebRootPath, "Data")));
+
+// var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+// app.Urls.Add($"http://*:{port}");
 
 app.MapGet("/", () => "Hello User!");
 
