@@ -90,9 +90,17 @@
               "target": "Package",
               "version": "[9.9.1-preview.1.25474.6, )"
             },
+            "Microsoft.Extensions.VectorData.Abstractions": {
+              "target": "Package",
+              "version": "[9.7.0, )"
+            },
             "Microsoft.IdentityModel.Protocols.OpenIdConnect": {
               "target": "Package",
               "version": "[8.14.0, )"
+            },
+            "Microsoft.SemanticKernel.Connectors.InMemory": {
+              "target": "Package",
+              "version": "[1.66.0-preview, )"
             },
             "Microsoft.SemanticKernel.Connectors.SqliteVec": {
               "target": "Package",

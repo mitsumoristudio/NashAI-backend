@@ -19,7 +19,9 @@
           "Microsoft.EntityFrameworkCore.Relational": "9.0.8",
           "Microsoft.Extensions.AI": "9.9.1",
           "Microsoft.Extensions.AI.OpenAI": "9.9.1-preview.1.25474.6",
+          "Microsoft.Extensions.VectorData.Abstractions": "9.7.0",
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "8.14.0",
+          "Microsoft.SemanticKernel.Connectors.InMemory": "1.66.0-preview",
           "Microsoft.SemanticKernel.Connectors.SqliteVec": "1.61.0-preview",
           "Microsoft.SemanticKernel.Core": "1.61.0",
           "Npgsql": "9.0.3",
@@ -774,13 +776,27 @@
           }
         }
       },
+      "Microsoft.SemanticKernel.Connectors.InMemory/1.66.0-preview": {
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "9.9.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.9",
+          "Microsoft.Extensions.VectorData.Abstractions": "9.7.0",
+          "System.Numerics.Tensors": "9.0.8"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.SemanticKernel.Connectors.InMemory.dll": {
+            "assemblyVersion": "1.66.0.0",
+            "fileVersion": "1.66.0.0"
+          }
+        }
+      },
       "Microsoft.SemanticKernel.Connectors.SqliteVec/1.61.0-preview": {
         "dependencies": {
           "Microsoft.Data.Sqlite": "9.0.6",
           "Microsoft.Extensions.AI.Abstractions": "9.9.1",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.9",
           "Microsoft.Extensions.VectorData.Abstractions": "9.7.0",
-          "System.Numerics.Tensors": "9.0.7",
+          "System.Numerics.Tensors": "9.0.8",
           "sqlite-vec": "0.1.7-alpha.2.1"
         },
         "runtime": {
@@ -794,7 +810,7 @@
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "9.0.8",
           "Microsoft.SemanticKernel.Abstractions": "1.61.0",
-          "System.Numerics.Tensors": "9.0.7"
+          "System.Numerics.Tensors": "9.0.8"
         },
         "runtime": {
           "lib/net8.0/Microsoft.SemanticKernel.Core.dll": {
@@ -1586,11 +1602,11 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.Numerics.Tensors/9.0.7": {
+      "System.Numerics.Tensors/9.0.8": {
         "runtime": {
           "lib/net9.0/System.Numerics.Tensors.dll": {
-            "assemblyVersion": "9.0.0.7",
-            "fileVersion": "9.0.725.31616"
+            "assemblyVersion": "9.0.0.8",
+            "fileVersion": "9.0.825.36511"
           }
         }
       },
@@ -2321,6 +2337,13 @@
       "path": "microsoft.semantickernel.abstractions/1.61.0",
       "hashPath": "microsoft.semantickernel.abstractions.1.61.0.nupkg.sha512"
     },
+    "Microsoft.SemanticKernel.Connectors.InMemory/1.66.0-preview": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8bsXe8Kcwd68us0AsHO9ywb1TkrxEGT6Wc0fX/XO5w2+BfSP3tJ5NYVuaMOYcTFOZhC1Jt/dI85YOxLhHEr+8A==",
+      "path": "microsoft.semantickernel.connectors.inmemory/1.66.0-preview",
+      "hashPath": "microsoft.semantickernel.connectors.inmemory.1.66.0-preview.nupkg.sha512"
+    },
     "Microsoft.SemanticKernel.Connectors.SqliteVec/1.61.0-preview": {
       "type": "package",
       "serviceable": true,
@@ -2839,12 +2862,12 @@
       "path": "system.net.sockets/4.3.0",
       "hashPath": "system.net.sockets.4.3.0.nupkg.sha512"
     },
-    "System.Numerics.Tensors/9.0.7": {
+    "System.Numerics.Tensors/9.0.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/Rpy1cFv8G0ONh8dxmsX0bmWyZ1lrde+T8Occ+N6bDTNFr+E6wWaC/ImI2zW9Mt6Bo2fzuEcRc7J5ke5t97TYQ==",
-      "path": "system.numerics.tensors/9.0.7",
-      "hashPath": "system.numerics.tensors.9.0.7.nupkg.sha512"
+      "sha512": "sha512-vnT3XBwytt8pYM25+lEHzR19F4GTkA9YA1E6wLOb55fiyY0wIaTVhlLrWAurvXcsgUdtNn0Ihw4qwWlsK6Wljg==",
+      "path": "system.numerics.tensors/9.0.8",
+      "hashPath": "system.numerics.tensors.9.0.8.nupkg.sha512"
     },
     "System.ObjectModel/4.3.0": {
       "type": "package",

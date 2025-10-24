@@ -1067,6 +1067,25 @@
           }
         }
       },
+      "Microsoft.SemanticKernel.Connectors.InMemory/1.66.0-preview": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "9.9.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.8",
+          "Microsoft.Extensions.VectorData.Abstractions": "9.7.0",
+          "System.Numerics.Tensors": "9.0.8"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.SemanticKernel.Connectors.InMemory.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.SemanticKernel.Connectors.InMemory.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.SemanticKernel.Connectors.SqliteVec/1.61.0-preview": {
         "type": "package",
         "dependencies": {
@@ -2404,7 +2423,7 @@
           }
         }
       },
-      "System.Numerics.Tensors/9.0.7": {
+      "System.Numerics.Tensors/9.0.8": {
         "type": "package",
         "compile": {
           "lib/net9.0/System.Numerics.Tensors.dll": {
@@ -5316,6 +5335,26 @@
         "microsoft.semantickernel.abstractions.nuspec"
       ]
     },
+    "Microsoft.SemanticKernel.Connectors.InMemory/1.66.0-preview": {
+      "sha512": "8bsXe8Kcwd68us0AsHO9ywb1TkrxEGT6Wc0fX/XO5w2+BfSP3tJ5NYVuaMOYcTFOZhC1Jt/dI85YOxLhHEr+8A==",
+      "type": "package",
+      "path": "microsoft.semantickernel.connectors.inmemory/1.66.0-preview",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "NUGET.md",
+        "VECTORDATA-CONNECTORS-NUGET.md",
+        "icon.png",
+        "lib/net462/Microsoft.SemanticKernel.Connectors.InMemory.dll",
+        "lib/net462/Microsoft.SemanticKernel.Connectors.InMemory.xml",
+        "lib/net8.0/Microsoft.SemanticKernel.Connectors.InMemory.dll",
+        "lib/net8.0/Microsoft.SemanticKernel.Connectors.InMemory.xml",
+        "lib/netstandard2.0/Microsoft.SemanticKernel.Connectors.InMemory.dll",
+        "lib/netstandard2.0/Microsoft.SemanticKernel.Connectors.InMemory.xml",
+        "microsoft.semantickernel.connectors.inmemory.1.66.0-preview.nupkg.sha512",
+        "microsoft.semantickernel.connectors.inmemory.nuspec"
+      ]
+    },
     "Microsoft.SemanticKernel.Connectors.SqliteVec/1.61.0-preview": {
       "sha512": "029Orgar2eyf3IsITYwiXlkg+vqSYVquEDQJz6gnMuxIEcutkBpNPodupjxfaZ5mrzvlyN1yNkturK09jc4+9A==",
       "type": "package",
@@ -7664,10 +7703,10 @@
         "system.net.sockets.nuspec"
       ]
     },
-    "System.Numerics.Tensors/9.0.7": {
-      "sha512": "/Rpy1cFv8G0ONh8dxmsX0bmWyZ1lrde+T8Occ+N6bDTNFr+E6wWaC/ImI2zW9Mt6Bo2fzuEcRc7J5ke5t97TYQ==",
+    "System.Numerics.Tensors/9.0.8": {
+      "sha512": "vnT3XBwytt8pYM25+lEHzR19F4GTkA9YA1E6wLOb55fiyY0wIaTVhlLrWAurvXcsgUdtNn0Ihw4qwWlsK6Wljg==",
       "type": "package",
-      "path": "system.numerics.tensors/9.0.7",
+      "path": "system.numerics.tensors/9.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7687,7 +7726,7 @@
         "lib/net9.0/System.Numerics.Tensors.xml",
         "lib/netstandard2.0/System.Numerics.Tensors.dll",
         "lib/netstandard2.0/System.Numerics.Tensors.xml",
-        "system.numerics.tensors.9.0.7.nupkg.sha512",
+        "system.numerics.tensors.9.0.8.nupkg.sha512",
         "system.numerics.tensors.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -9622,7 +9661,9 @@
       "Microsoft.EntityFrameworkCore.Relational >= 9.0.8",
       "Microsoft.Extensions.AI >= 9.9.1",
       "Microsoft.Extensions.AI.OpenAI >= 9.9.1-preview.1.25474.6",
+      "Microsoft.Extensions.VectorData.Abstractions >= 9.7.0",
       "Microsoft.IdentityModel.Protocols.OpenIdConnect >= 8.14.0",
+      "Microsoft.SemanticKernel.Connectors.InMemory >= 1.66.0-preview",
       "Microsoft.SemanticKernel.Connectors.SqliteVec >= 1.61.0-preview",
       "Microsoft.SemanticKernel.Core >= 1.61.0",
       "Npgsql >= 9.0.3",
@@ -9723,9 +9764,17 @@
             "target": "Package",
             "version": "[9.9.1-preview.1.25474.6, )"
           },
+          "Microsoft.Extensions.VectorData.Abstractions": {
+            "target": "Package",
+            "version": "[9.7.0, )"
+          },
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": {
             "target": "Package",
             "version": "[8.14.0, )"
+          },
+          "Microsoft.SemanticKernel.Connectors.InMemory": {
+            "target": "Package",
+            "version": "[1.66.0-preview, )"
           },
           "Microsoft.SemanticKernel.Connectors.SqliteVec": {
             "target": "Package",

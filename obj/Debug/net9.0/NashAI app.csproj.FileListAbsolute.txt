@@ -218,3 +218,4 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/tr/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.SemanticKernel.Connectors.InMemory.dll

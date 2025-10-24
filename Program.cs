@@ -113,6 +113,23 @@ var embeddingGenerator = ghModelsClient.GetEmbeddingClient("text-embedding-3-sma
 
 // Adding SqlLite Vectorpath
 var vectorStorePath = Path.Combine(AppContext.BaseDirectory, "vector-store.db");
+
+if (!File.Exists(vectorStorePath))
+{
+    Console.WriteLine($"Vector store not found at: {vectorStorePath}");
+    return;
+}
+
+
+
+
+
+
+
+
+
+
+
 var vectorStoreConnectionString = $"Data Source={vectorStorePath}";
 builder.Services.AddSqliteCollection<string, IngestedChunk>("data-nashai_app-chunks", vectorStoreConnectionString);
 builder.Services.AddSqliteCollection<string, IngestedDocument>("data-nashai_app-documents", vectorStoreConnectionString);
@@ -129,6 +146,32 @@ while (reader.Read())
 {
     Console.WriteLine(reader.GetString(0));
 }
+
+var getTablesCmd = connection.CreateCommand();
+getTablesCmd.CommandText = "SELECT name FROM sqlite_master WHERE type='table';";
+
+using var tableReader = getTablesCmd.ExecuteReader();
+Console.WriteLine("Tables in vector-store.db:");
+while (tableReader.Read())
+{
+    Console.WriteLine($"- {tableReader.GetString(0)}");
+}
+
+Console.WriteLine("\n--- Reading embeddings from 'data-nashai_app-chunks' ---");
+
+// Inspect the chunks table
+var checkTableCmd = connection.CreateCommand();
+checkTableCmd.CommandText = "PRAGMA table_info([data-nashai_app-chunks]);";
+
+using var schemaReader = checkTableCmd.ExecuteReader();
+Console.WriteLine("Columns in data-nashai_app-chunks:");
+while (schemaReader.Read())
+{
+    Console.WriteLine($"- {schemaReader.GetString(1)} ({schemaReader.GetString(2)})");
+}
+
+// Fetch some rows
+
 
 Console.WriteLine($"SQLite DB Path: {connection}");
 Console.WriteLine($"File exists: {File.Exists("/src/data/data-nashai_app-chunks.db")}");
