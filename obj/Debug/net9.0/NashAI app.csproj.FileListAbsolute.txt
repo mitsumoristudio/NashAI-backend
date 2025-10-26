@@ -1,3 +1,13 @@
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.csproj.AssemblyReference.cache
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rpswa.dswa.cache.json
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.GeneratedMSBuildEditorConfig.editorconfig
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.AssemblyInfoInputs.cache
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.AssemblyInfo.cs
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.csproj.CoreCompileInputs.cache
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.MvcApplicationPartsAssemblyInfo.cs
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.MvcApplicationPartsAssemblyInfo.cache
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/EFCoreNpgsqlPgvector.cs
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.sourcelink.json
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/appsettings.Development.json
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/appsettings.json
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/NashAI app.staticwebassets.runtime.json
@@ -7,21 +17,58 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/NashAI app.runtimeconfig.json
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/NashAI app.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/NashAI app.pdb
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Auth0.AspNetCore.Authentication.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/BCrypt.Net-Next.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/DotNetEnv.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/FluentValidation.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/FluentValidation.AspNetCore.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/FluentValidation.DependencyInjectionExtensions.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Humanizer.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Bcl.AsyncInterfaces.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Bcl.HashCode.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Build.Locator.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.CSharp.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.Workspaces.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Data.Sqlite.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Design.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Relational.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.AI.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.AI.Abstractions.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.AI.OpenAI.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Caching.Abstractions.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Caching.Memory.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.DependencyModel.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Logging.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Options.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.VectorData.Abstractions.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.OpenApi.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.SemanticKernel.Abstractions.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.SemanticKernel.Connectors.InMemory.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.SemanticKernel.Connectors.SqliteVec.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.SemanticKernel.Core.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Mono.TextTemplating.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Npgsql.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/OpenAI.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/UglyToad.PdfPig.Core.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/UglyToad.PdfPig.DocumentLayoutAnalysis.dll
@@ -30,121 +77,19 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/UglyToad.PdfPig.Tokenization.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/UglyToad.PdfPig.Tokens.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/UglyToad.PdfPig.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Pgvector.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Pgvector.EntityFrameworkCore.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SixLabors.Fonts.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SixLabors.ImageSharp.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SixLabors.ImageSharp.Drawing.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Sprache.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SQLitePCLRaw.batteries_v2.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SQLitePCLRaw.core.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SQLitePCLRaw.provider.e_sqlite3.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.ClientModel.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Linq.Async.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Memory.Data.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Numerics.Tensors.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-arm64/native/vec0.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-x64/native/vec0.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/osx-arm64/native/vec0.dylib
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/osx-x64/native/vec0.dylib
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/win-x64/native/vec0.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/browser-wasm/nativeassets/net9.0/e_sqlite3.a
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-arm/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-arm64/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-armel/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-mips64/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-musl-arm/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-musl-arm64/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-musl-s390x/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-musl-x64/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-ppc64le/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-s390x/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-x64/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-x86/native/libe_sqlite3.so
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/maccatalyst-arm64/native/libe_sqlite3.dylib
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/maccatalyst-x64/native/libe_sqlite3.dylib
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/osx-arm64/native/libe_sqlite3.dylib
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/osx-x64/native/libe_sqlite3.dylib
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/win-arm/native/e_sqlite3.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/win-arm64/native/e_sqlite3.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/win-x64/native/e_sqlite3.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/win-x86/native/e_sqlite3.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.csproj.AssemblyReference.cache
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rpswa.dswa.cache.json
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.GeneratedMSBuildEditorConfig.editorconfig
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.AssemblyInfoInputs.cache
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.AssemblyInfo.cs
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.csproj.CoreCompileInputs.cache
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.MvcApplicationPartsAssemblyInfo.cache
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rjimswa.dswa.cache.json
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rjsmrazor.dswa.cache.json
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/bundle/NashAI app.styles.css
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/zn349qvchr-nf3i5kmnu8.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/bnx3t2xvtn-u46q3xrglm.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/ibp51s2gj9-dv5t0lo4q1.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/kglh1e7nru-da1w78usuh.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/dka3nw750l-3y2kxzjbbw.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/8dhhzdbzuy-ln7o2q5zyn.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/or2t5653ut-2krzn1wfmp.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/pq4vcg928t-sqw4pz8lqb.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/l27a0mop9x-e6olilf8l0.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/gttw37lywf-dzfx2djg91.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/hpe7mm9sgo-esv56m2yrl.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/muygpv6axa-79d4e3n66n.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/axx32lkltx-t8tot8e3wb.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/vlfofsq8in-e7iarkq29p.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/533a7dzphq-ehm2826cnl.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/o4g8setpsi-3yynpeuhzu.gz
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.build.json
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.build.json.cache
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.development.json
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.build.endpoints.json
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.csproj.Up2Date
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/refint/NashAI app.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.pdb
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.genruntimeconfig.cache
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/ref/NashAI app.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.OpenApi.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SixLabors.Fonts.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SixLabors.ImageSharp.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SixLabors.ImageSharp.Drawing.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Swashbuckle.AspNetCore.Swagger.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.MvcApplicationPartsAssemblyInfo.cs
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.sourcelink.json
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Auth0.AspNetCore.Authentication.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/BCrypt.Net-Next.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/FluentValidation.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/FluentValidation.AspNetCore.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/FluentValidation.DependencyInjectionExtensions.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Humanizer.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.AspNetCore.OpenApi.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Build.Locator.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.CSharp.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.Workspaces.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Abstractions.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Design.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Relational.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Caching.Memory.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.DependencyModel.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Logging.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.Extensions.Options.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.Abstractions.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Mono.TextTemplating.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Npgsql.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.ClientModel.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.CodeDom.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Composition.AttributedModel.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Composition.Convention.dll
@@ -152,6 +97,9 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Composition.Runtime.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Composition.TypedParts.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Linq.Async.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Memory.Data.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Numerics.Tensors.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Text.Json.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/cs/Microsoft.CodeAnalysis.resources.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/de/Microsoft.CodeAnalysis.resources.dll
@@ -218,4 +166,59 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/tr/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Microsoft.SemanticKernel.Connectors.InMemory.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-arm64/native/vec0.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-x64/native/vec0.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/osx-arm64/native/vec0.dylib
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/osx-x64/native/vec0.dylib
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/win-x64/native/vec0.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/browser-wasm/nativeassets/net9.0/e_sqlite3.a
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-arm/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-arm64/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-armel/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-mips64/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-musl-arm/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-musl-arm64/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-musl-s390x/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-musl-x64/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-ppc64le/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-s390x/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-x64/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/linux-x86/native/libe_sqlite3.so
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/maccatalyst-arm64/native/libe_sqlite3.dylib
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/maccatalyst-x64/native/libe_sqlite3.dylib
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/osx-arm64/native/libe_sqlite3.dylib
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/osx-x64/native/libe_sqlite3.dylib
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/win-arm/native/e_sqlite3.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/win-arm64/native/e_sqlite3.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/win-x64/native/e_sqlite3.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/runtimes/win-x86/native/e_sqlite3.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rjimswa.dswa.cache.json
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rjsmrazor.dswa.cache.json
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/scopedcss/bundle/NashAI app.styles.css
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/zn349qvchr-nf3i5kmnu8.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/bnx3t2xvtn-u46q3xrglm.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/ibp51s2gj9-dv5t0lo4q1.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/kglh1e7nru-da1w78usuh.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/dka3nw750l-3y2kxzjbbw.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/8dhhzdbzuy-ln7o2q5zyn.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/or2t5653ut-2krzn1wfmp.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/pq4vcg928t-sqw4pz8lqb.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/l27a0mop9x-e6olilf8l0.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/gttw37lywf-dzfx2djg91.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/hpe7mm9sgo-esv56m2yrl.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/muygpv6axa-79d4e3n66n.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/axx32lkltx-t8tot8e3wb.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/vlfofsq8in-e7iarkq29p.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/533a7dzphq-ehm2826cnl.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/compressed/o4g8setpsi-3yynpeuhzu.gz
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.build.json
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.build.json.cache
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.development.json
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/staticwebassets.build.endpoints.json
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.csproj.Up2Date
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/refint/NashAI app.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.pdb
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.genruntimeconfig.cache
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/ref/NashAI app.dll

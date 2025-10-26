@@ -5,7 +5,7 @@ namespace NashAI_app.Services;
 
 public interface IRagService
 {
-    Task<string> GetRagResponseAsync(ChatSessionModel session, [FromQuery] string filesystem);
+    Task<string> GetRagResponseAsync(ChatSessionVBModel sessionVb, [FromQuery] string filesystem);
 
     Task<string> GenerateResponseAsync(string query, string sessionId);
 }

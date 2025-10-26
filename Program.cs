@@ -1,189 +1,100 @@
 using Microsoft.Extensions.AI;
-using NashAI_app.Services;
+//using Microsoft.Extensions.AI.OpenAI;
 using NashAI_app.Services.Ingestion;
-using OpenAI;
-using System.ClientModel;
-using System.Text;
-using DotNetEnv;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using NashAI_app.utils;
-using OpenAI.Chat;
 using Project_Manassas.Database;
-using Microsoft.Extensions.VectorData;
-using Microsoft.SemanticKernel.Connectors.SqliteVec;
+using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using OpenAI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Load .Env before configuration is built
+// Load environment variables from .env
 Env.Load();
-
-// Add Environmental variables
 builder.Configuration.AddEnvironmentVariables();
 
-// Add CORS services to container for REACT frontend to call the API
+// CORS for React frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactDev",
-        policy => policy.WithOrigins("http://localhost:3000")
+        policy => policy
+            .WithOrigins("http://localhost:3000")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials()
     );
 });
 
-// Add Service
+// Controllers
 builder.Services.AddControllers()
-    .AddJsonOptions(options =>
+    .AddJsonOptions(opt =>
     {
-        options.JsonSerializerOptions.IgnoreNullValues = true;
-        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        opt.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
     });
 
-builder.Services.AddApplicationServices();
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-// JWT settings
+// --- JWT Authentication (example) ---
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 
-builder.Services.AddAuthentication(option =>
-    {
-        option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
-    })
-    .AddJwtBearer(option =>
-    {
-        option.RequireHttpsMetadata = false;
-        option.SaveToken = true;
-        option.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidIssuer = jwtSettings?.Issuer,
-        
-            ValidateAudience = true,
-            ValidAudience = jwtSettings?.Audience,
-        
-            ValidateLifetime = true,
-        
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings!.SecretKey))
-            // Tells ASP.NET Core ow to validate incoming JWT tokens
-        
-        };
-    });
-
-builder.Services.AddControllersWithViews();
-
-// Setting up Neon database
-var neonAPIKey = Environment.GetEnvironmentVariable("NEON_API_KEY");
-
-builder.Services.AddDbContext<ProjectContext>(options =>
+builder.Services.AddAuthentication(opt =>
 {
-    options.UseNpgsql(neonAPIKey);
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(opt =>
+{
+    opt.RequireHttpsMetadata = false;
+    opt.SaveToken = true;
+    opt.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = jwtSettings?.Issuer,
+        ValidateAudience = true,
+        ValidAudience = jwtSettings?.Audience,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings!.SecretKey))
+    };
 });
 
-// Not using Razor Pages
-//builder.Services.AddRazorComponents().AddInteractiveServerComponents();
-
-// Setting up secret keys
-/*
- * dotnet user-secrets init
- * dotnet user-secrets set "OpenAI:ApiKey" "yourapikey"
- */
-
-// Setting up OpenAI API
-var credential = new ApiKeyCredential(builder.Configuration["OPENAI_API_KEY"]);
-var openAIOptions = new OpenAIClientOptions()
+// --- Database: Neon/Postgres with pgvector ---
+var neonConnection = Environment.GetEnvironmentVariable("NEON_API_KEY");
+builder.Services.AddDbContext<ProjectContext>(options =>
 {
-    Endpoint = new Uri("https://api.openai.com/v1")
-};
+    options.UseNpgsql(neonConnection, npgsql => npgsql.UseVector());
+});
 
-// Chatting and Embeddings
-var ghModelsClient = new OpenAIClient(credential, openAIOptions);
-var chatClient = ghModelsClient.GetChatClient("gpt-4o-mini").AsIChatClient();
-var embeddingGenerator = ghModelsClient.GetEmbeddingClient("text-embedding-3-small").AsIEmbeddingGenerator();
-
-// Adding SqlLite Vectorpath
-var vectorStorePath = Path.Combine(AppContext.BaseDirectory, "vector-store.db");
-
-// Ensure folder exists
-Directory.CreateDirectory(Path.GetDirectoryName(vectorStorePath)!);
-
-if (!File.Exists(vectorStorePath))
+// --- OpenAI Client ---
+builder.Services.AddSingleton<OpenAIClient>(sp =>
 {
-    Console.WriteLine($"Vector store not found at {vectorStorePath}. Creating a new one...");
-    using var fs = File.Create(vectorStorePath); // create empty file
-    fs.Close();
-}
+    var apiKey = builder.Configuration["OPENAI_API_KEY"]
+                 ?? Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 
-var vectorStoreConnectionString = $"Data Source={vectorStorePath}";
-builder.Services.AddSqliteCollection<string, IngestedChunk>("data-nashai_app-chunks", vectorStoreConnectionString);
-builder.Services.AddSqliteCollection<string, IngestedDocument>("data-nashai_app-documents", vectorStoreConnectionString);
+    if (string.IsNullOrWhiteSpace(apiKey))
+        throw new InvalidOperationException("OpenAI API key not configured.");
 
-// Open Sqlite
-using var connection = new SqliteConnection($"Data Source={vectorStorePath}");
-connection.Open();
+    return new OpenAIClient(apiKey);
+});
 
-var command = connection.CreateCommand();
-command.CommandText ="SELECT * FROM [data-nashai_app-chunks] LIMIT 5;";
-
-using var reader = command.ExecuteReader();
-while (reader.Read())
+// --- Microsoft.Extensions.AI OpenAI Embedding Generator ---
+builder.Services.AddEmbeddingGenerator<string, Embedding<float>>(sp =>
 {
-    Console.WriteLine(reader.GetString(0));
-}
+    var client = sp.GetRequiredService<OpenAIClient>();
+    // Use preview extension method from Microsoft.Extensions.AI.OpenAI
+    return client.GetEmbeddingClient("text-embedding-3-small").AsIEmbeddingGenerator();
+});
 
-var getTablesCmd = connection.CreateCommand();
-getTablesCmd.CommandText = "SELECT name FROM sqlite_master WHERE type='table';";
+// --- Data Ingestion Service ---
+builder.Services.AddScoped<DataIngestorVB>();
 
-using var tableReader = getTablesCmd.ExecuteReader();
-Console.WriteLine("Tables in vector-store.db:");
-while (tableReader.Read())
-{
-    Console.WriteLine($"- {tableReader.GetString(0)}");
-}
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-Console.WriteLine("\n--- Reading embeddings from 'data-nashai_app-chunks' ---");
-
-// Inspect the chunks table
-var checkTableCmd = connection.CreateCommand();
-checkTableCmd.CommandText = "PRAGMA table_info([data-nashai_app-chunks]);";
-
-using var schemaReader = checkTableCmd.ExecuteReader();
-Console.WriteLine("Columns in data-nashai_app-chunks:");
-while (schemaReader.Read())
-{
-    Console.WriteLine($"- {schemaReader.GetString(1)} ({schemaReader.GetString(2)})");
-}
-
-// Fetch some rows
-
-
-Console.WriteLine($"SQLite DB Path: {connection}");
-Console.WriteLine($"File exists: {File.Exists("/src/data/data-nashai_app-chunks.db")}");
-
-
-// Data Ingestion Service
-builder.Services.AddScoped<DataIngestor>();
-
-// Semantic Search
-builder.Services.AddSingleton<SemanticSearch>();
-
-// Add Chat Client
-builder.Services.AddChatClient(chatClient).UseFunctionInvocation().UseLogging();
-
-// Add Embedding Generation
-builder.Services.AddEmbeddingGenerator(embeddingGenerator);
-
-// Build the App
+// Build app
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -192,34 +103,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
-
-app.UseRouting();
-
-app.UseCors("AllowReactDev");
-
 app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseCors("AllowReactDev");
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
 
-// By default, we ingest PDF files from the /wwwroot/Data directory. You can ingest from
-// other sources by implementing IIngestionSource.
-// Important: ensure that any content you ingest is trusted, as it may be reflected back
-// to users or could be a source of prompt injection risk.
-await DataIngestor.IngestDataAsync(
-    app.Services,
-    new PDFDirectorySource(Path.Combine(builder.Environment.WebRootPath, "Data")));
-
-// var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-// app.Urls.Add($"http://*:{port}");
+// Example: ingest PDFs from /wwwroot/Data at startup
+using (var scope = app.Services.CreateScope())
+{
+    var ingestor = scope.ServiceProvider.GetRequiredService<DataIngestorVB>();
+    await ingestor.IngestPdfsAsync(Path.Combine(builder.Environment.WebRootPath, "Data"));
+}
 
 app.MapGet("/", () => "Hello User!");
-
 app.Run();

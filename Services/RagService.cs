@@ -8,26 +8,26 @@ namespace NashAI_app.Services;
 public class RagService : IRagService
 {
     private readonly IChatClient _chatClient;
-    private readonly SemanticSearch _semanticSearch;
+    private readonly SemanticSearch_sqlite _semanticSearchSqlite;
 
-    public RagService(IChatClient chatClient, SemanticSearch semanticSearch)
+    public RagService(IChatClient chatClient, SemanticSearch_sqlite semanticSearchSqlite)
     {
         _chatClient = chatClient;
-        _semanticSearch = semanticSearch;
+        _semanticSearchSqlite = semanticSearchSqlite;
     }
 
-    public async Task<string> GetRagResponseAsync(ChatSessionModel session,  [FromQuery] string? filesystem)
+    public async Task<string> GetRagResponseAsync(ChatSessionVBModel sessionVb,  [FromQuery] string? filesystem)
     {
-        var userMessage = session.Messages.LastOrDefault(role => role.Role == ChatRole.User);
+        var userMessage = sessionVb.Messages.LastOrDefault(role => role.Role == ChatRole.User);
         if (userMessage == null) return "No user was found";
 
-        var retrievedDocs = await _semanticSearch.SearchAsync(userMessage.MessageContent, filesystem, 5);
+        var retrievedDocs = await _semanticSearchSqlite.SearchAsync(userMessage.MessageContent, filesystem, 5);
         var context = string.Join("\n\n", retrievedDocs.Select(d => d.Text));
 
         var systemMessage = new ChatMessage(ChatRole.System, $"Use this context:\n{context}");
         var chatMessages = new List<ChatMessage> { systemMessage };
         
-        chatMessages.AddRange(session.Messages.Select(m => new ChatMessage(m.Role, m.MessageContent)));
+        chatMessages.AddRange(sessionVb.Messages.Select(m => new ChatMessage(m.Role, m.MessageContent)));
 
         var response = await _chatClient.GetResponseAsync(chatMessages);
 
@@ -37,7 +37,7 @@ public class RagService : IRagService
     public async Task<string> GenerateResponseAsync(string query, string sessionId)
     {
         // Retrieve Context
-        var retrievedDocs = await _semanticSearch.SearchAsync(query, null, 3);
+        var retrievedDocs = await _semanticSearchSqlite.SearchAsync(query, null, 3);
 
         var contextBuilder = new StringBuilder();
         foreach (var doc in retrievedDocs)

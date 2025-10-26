@@ -11,25 +11,25 @@ namespace NashAI_app.Controller;
 public class ChatController: ControllerBase
 {
     private readonly IChatClient _chatClient;
-    private readonly SemanticSearch _semanticSearch;
+    private readonly SemanticSearch_sqlite _semanticSearchSqlite;
     private readonly IRagService _ragService;
 
-    public ChatController(IChatClient chatClient, SemanticSearch semanticSearch, IRagService ragService)
+    public ChatController(IChatClient chatClient, SemanticSearch_sqlite semanticSearchSqlite, IRagService ragService)
     {
         _chatClient = chatClient;
-        _semanticSearch = semanticSearch;
+        _semanticSearchSqlite = semanticSearchSqlite;
         _ragService = ragService;
     }
     
     [HttpPost(ApiEndPoints.Chats.SEND_URL_CHATS)] 
-    public async Task<IActionResult> SendMessageAsync([FromBody] ChatSessionModel session)
+    public async Task<IActionResult> SendMessageAsync([FromBody] ChatSessionVBModel sessionVb)
     {
-        var userMessage = session.Messages.LastOrDefault(p => p.Role == ChatRole.User);
+        var userMessage = sessionVb.Messages.LastOrDefault(p => p.Role == ChatRole.User);
         if (userMessage == null)
             return BadRequest("User was not found");
     
         // Convert chat messages for AI client
-        var chatMessages = session.Messages
+        var chatMessages = sessionVb.Messages
             .Select(m => new ChatMessage(m.Role, m.MessageContent))
             .ToList();
 
@@ -38,21 +38,21 @@ public class ChatController: ControllerBase
         
 
         // Create assistant message
-        var assistantMessage = new ChatMessageModel
+        var assistantMessage = new ChatMessageVBModel
         {
             Role = ChatRole.Assistant,
             MessageContent = response?.ToString() ?? string.Empty,
             CreatedAt = DateTime.UtcNow,
-            SessionId = session.SessionId
+            SessionId = sessionVb.SessionId
         };
 
         // Add to session (in memory for now)
-        session.Messages.Add(assistantMessage);
+        sessionVb.Messages.Add(assistantMessage);
 
         // ✅ Return structured JSON that React expects
         return Ok(new
         {
-            sessionId = session.SessionId,
+            sessionId = sessionVb.SessionId,
             role = assistantMessage.Role.ToString(),
             messageContent = assistantMessage.MessageContent,
             createdAt = assistantMessage.CreatedAt
@@ -60,7 +60,7 @@ public class ChatController: ControllerBase
     }
 
     [HttpPost(ApiEndPoints.Chats.SEMANTIC_SEARCH_URLS)]
-    public async Task<IActionResult> SendSemanticSearch([FromBody] ChatSessionModel session)
+    public async Task<IActionResult> SendSemanticSearch([FromBody] ChatSessionVBModel sessionVb)
     {
          bool IsRelevant(string text, string query, int minOverlap = 2)
         {
@@ -77,14 +77,14 @@ public class ChatController: ControllerBase
             return overlap >= minOverlap;
         }
          
-        var userMessage = session.Messages.LastOrDefault(p => p.Role == ChatRole.User);
+        var userMessage = sessionVb.Messages.LastOrDefault(p => p.Role == ChatRole.User);
         if (userMessage == null)
             return BadRequest("User was not found");
         
         // Perform Semantic Search for context
         var query = userMessage.MessageContent;
         
-       var retrievedDocs = await _semanticSearch.SearchAsync(query, null, 4);
+       var retrievedDocs = await _semanticSearchSqlite.SearchAsync(query, null, 4);
        var relevantDocs = retrievedDocs.Where(d => d.Score >= 0.75).ToList();
 
        
@@ -92,7 +92,7 @@ public class ChatController: ControllerBase
        {
            return Ok(new
            {
-               session.SessionId,
+               sessionVb.SessionId,
                role = ChatRole.Assistant.ToString(),
                messageContent = "I couldn’t find relevant information for your question in the available sources.",
                createdAt = DateTime.UtcNow,
@@ -146,29 +146,29 @@ Kindly inform the user that no relevant results were found.";
           new ChatMessage(ChatRole.System, systemPrompt)
       };
       
-        chatMessages.AddRange(session.Messages.Select(m => new ChatMessage(m.Role, m.MessageContent)));
+        chatMessages.AddRange(sessionVb.Messages.Select(m => new ChatMessage(m.Role, m.MessageContent)));
         
         // Get AI response
         var response = await _chatClient.GetResponseAsync(chatMessages);
         
         // Create assistant message
-        var assistantMessage = new ChatMessageModel
+        var assistantMessage = new ChatMessageVBModel
         {
             Role = ChatRole.Assistant,
             MessageContent = response?.ToString() ?? string.Empty,
             CreatedAt = DateTime.UtcNow,
-            SessionId = session.SessionId
+            SessionId = sessionVb.SessionId
         };
 
         // Add to session (in memory for now)
-        session.Messages.Add(assistantMessage);
+        sessionVb.Messages.Add(assistantMessage);
         
         // ✅ Return structured JSON that React expects
         if (contextUsed)
         {
             return Ok(new
                    {
-                       sessionId = session.SessionId,
+                       sessionId = sessionVb.SessionId,
                        role = assistantMessage.Role.ToString(),
                        messageContent = assistantMessage.MessageContent,
                        createdAt = assistantMessage.CreatedAt,
@@ -183,7 +183,7 @@ Kindly inform the user that no relevant results were found.";
         } else {
             return Ok(new
             {
-                sessionId = session.SessionId,
+                sessionId = sessionVb.SessionId,
                 role = assistantMessage.Role.ToString(),
                 messageContent = assistantMessage.MessageContent,
                 createdAt = assistantMessage.CreatedAt,
@@ -196,7 +196,7 @@ Kindly inform the user that no relevant results were found.";
     [HttpGet(ApiEndPoints.Chats.SEARCH_URL_CHATS)]
     public async Task<IActionResult> SearchAsyncMessage([FromQuery] string query, [FromQuery] string? filesystem)
     {
-        var results = await _semanticSearch.SearchAsync(query, filesystem, 5);
+        var results = await _semanticSearchSqlite.SearchAsync(query, filesystem, 5);
         return Ok(results);
     }
 }

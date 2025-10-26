@@ -10,7 +10,7 @@ public static class ApplicationServiceCollection
         services.AddScoped<IProjectService, ProjectService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IEquipmentService, EquipmentService>();
-        services.AddScoped<IRagService, RagService>();
+     //   services.AddScoped<IRagService, RagService>();
         
         return services;
     }
