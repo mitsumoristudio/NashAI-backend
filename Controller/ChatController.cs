@@ -11,14 +11,14 @@ namespace NashAI_app.Controller;
 public class ChatController: ControllerBase
 {
     private readonly IChatClient _chatClient;
-    private readonly SemanticSearch_sqlite _semanticSearchSqlite;
-    private readonly IRagService _ragService;
+    private readonly SemanticSearchVB _semanticSearchVB;
+   
 
-    public ChatController(IChatClient chatClient, SemanticSearch_sqlite semanticSearchSqlite, IRagService ragService)
+    public ChatController(IChatClient chatClient, SemanticSearchVB semanticSearchVB)
     {
         _chatClient = chatClient;
-        _semanticSearchSqlite = semanticSearchSqlite;
-        _ragService = ragService;
+        _semanticSearchVB = semanticSearchVB;
+
     }
     
     [HttpPost(ApiEndPoints.Chats.SEND_URL_CHATS)] 
@@ -84,11 +84,11 @@ public class ChatController: ControllerBase
         // Perform Semantic Search for context
         var query = userMessage.MessageContent;
         
-       var retrievedDocs = await _semanticSearchSqlite.SearchAsync(query, null, 4);
-       var relevantDocs = retrievedDocs.Where(d => d.Score >= 0.75).ToList();
+       var retrievedDocs = await _semanticSearchVB.SearchAsync(query, null, 4);
+       var relevantDocs = retrievedDocs.Where(d => d.Score >= 0.60).ToList();
 
        
-       if (retrievedDocs.Count == 0)
+       if (relevantDocs.Count == 0)
        {
            return Ok(new
            {
@@ -126,19 +126,6 @@ There was no relevant information retrieved from the knowledge base.
 Kindly inform the user that no relevant results were found.";
        }
        
-        // Build Context text from top results
-//         var contextText = string.Join("\n\n", retrievedDocs.Select(r => r.Text));
-//         
-//         // Add system prompt to include context
-//         var systemPrompt = new ChatMessage(ChatRole.System,
-//             @$"You are a precise and factual assistant. 
-// Use ONLY the information from the provided context to answer.
-// If the context does not contain enough detail, respond with:
-// 'I could not find relevant information in the provided sources.'
-//
-// ### Context:
-// {contextText}");
-        
         // Combine system + chat history + user message
       //  var chatMessages = new List<ChatMessage> { systemPrompt };
       var chatMessages = new List<ChatMessage>
@@ -196,7 +183,7 @@ Kindly inform the user that no relevant results were found.";
     [HttpGet(ApiEndPoints.Chats.SEARCH_URL_CHATS)]
     public async Task<IActionResult> SearchAsyncMessage([FromQuery] string query, [FromQuery] string? filesystem)
     {
-        var results = await _semanticSearchSqlite.SearchAsync(query, filesystem, 5);
+        var results = await _semanticSearchVB.SearchAsync(query, filesystem, 5);
         return Ok(results);
     }
 }

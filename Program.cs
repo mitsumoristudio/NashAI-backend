@@ -1,5 +1,4 @@
 using Microsoft.Extensions.AI;
-//using Microsoft.Extensions.AI.OpenAI;
 using NashAI_app.Services.Ingestion;
 using Project_Manassas.Database;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +6,7 @@ using DotNetEnv;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using NashAI_app.utils;
 using OpenAI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +27,7 @@ builder.Services.AddCors(options =>
     );
 });
 
+
 // Controllers
 builder.Services.AddControllers()
     .AddJsonOptions(opt =>
@@ -34,6 +35,24 @@ builder.Services.AddControllers()
         opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
         opt.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
     });
+
+// Register IChatClient for OpenAI
+builder.Services.AddSingleton<IChatClient>(sp =>
+{
+    var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY")
+                 ?? builder.Configuration["OPENAI_API_KEY"]
+                 ?? throw new Exception("OPENAI_API_KEY environment variable not found");
+
+    var openAICLient = new OpenAI.Chat.ChatClient(
+        model: "gpt-40-mini",
+        apiKey: apiKey).AsIChatClient();
+  
+    return openAICLient;
+});
+
+
+builder.Services.AddApplicationServices();
+
 
 // --- JWT Authentication (example) ---
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -102,6 +121,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 app.UseRouting();

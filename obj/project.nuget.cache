@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "l/WbuNu+i38=",
+  "dgSpecHash": "RfHcKBUsJng=",
   "success": true,
   "projectFilePath": "/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/NashAI app.csproj",
   "expectedPackageFiles": [
     "/Users/satoshimitsumori/.nuget/packages/auth0.aspnetcore.authentication/1.5.0/auth0.aspnetcore.authentication.1.5.0.nupkg.sha512",
     "/Users/satoshimitsumori/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
+    "/Users/satoshimitsumori/.nuget/packages/dapper/2.1.66/dapper.2.1.66.nupkg.sha512",
     "/Users/satoshimitsumori/.nuget/packages/dotnetenv/3.1.1/dotnetenv.3.1.1.nupkg.sha512",
     "/Users/satoshimitsumori/.nuget/packages/fluentvalidation/11.11.0/fluentvalidation.11.11.0.nupkg.sha512",
     "/Users/satoshimitsumori/.nuget/packages/fluentvalidation.aspnetcore/11.3.1/fluentvalidation.aspnetcore.11.3.1.nupkg.sha512",

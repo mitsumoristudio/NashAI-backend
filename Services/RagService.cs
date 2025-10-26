@@ -8,12 +8,12 @@ namespace NashAI_app.Services;
 public class RagService : IRagService
 {
     private readonly IChatClient _chatClient;
-    private readonly SemanticSearch_sqlite _semanticSearchSqlite;
+    private readonly SemanticSearchVB _semanticSearchVb;
 
-    public RagService(IChatClient chatClient, SemanticSearch_sqlite semanticSearchSqlite)
+    public RagService(IChatClient chatClient, SemanticSearchVB semanticSearchVb)
     {
         _chatClient = chatClient;
-        _semanticSearchSqlite = semanticSearchSqlite;
+        _semanticSearchVb = semanticSearchVb;
     }
 
     public async Task<string> GetRagResponseAsync(ChatSessionVBModel sessionVb,  [FromQuery] string? filesystem)
@@ -21,7 +21,7 @@ public class RagService : IRagService
         var userMessage = sessionVb.Messages.LastOrDefault(role => role.Role == ChatRole.User);
         if (userMessage == null) return "No user was found";
 
-        var retrievedDocs = await _semanticSearchSqlite.SearchAsync(userMessage.MessageContent, filesystem, 5);
+        var retrievedDocs = await _semanticSearchVb.SearchAsync(userMessage.MessageContent, filesystem, 5);
         var context = string.Join("\n\n", retrievedDocs.Select(d => d.Text));
 
         var systemMessage = new ChatMessage(ChatRole.System, $"Use this context:\n{context}");
@@ -37,7 +37,7 @@ public class RagService : IRagService
     public async Task<string> GenerateResponseAsync(string query, string sessionId)
     {
         // Retrieve Context
-        var retrievedDocs = await _semanticSearchSqlite.SearchAsync(query, null, 3);
+        var retrievedDocs = await _semanticSearchVb.SearchAsync(query, null, 3);
 
         var contextBuilder = new StringBuilder();
         foreach (var doc in retrievedDocs)
