@@ -17,8 +17,10 @@ public class IngestedChunk
     public int PageNumber { get; set; }
 
     [VectorStoreData]
-    public required string Text { get; set; }
+    public required string Content { get; set; }
 
     [VectorStoreVector(VectorDimensions, DistanceFunction = VectorDistanceFunction)]
-    public string? Vector => Text;
+    public string? Vector => Content;
+    
+    public float[] Embeddings { get; set; }
 }

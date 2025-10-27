@@ -8,12 +8,22 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using NashAI_app.utils;
 using OpenAI;
+using Npgsql;
+using Pgvector;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Load environment variables from .env
 Env.Load();
 builder.Configuration.AddEnvironmentVariables();
+
+// var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//
+// var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
+// dataSourceBuilder.UseVector();
+// var dataSource = dataSourceBuilder.Build();
+//
+// builder.Services.AddSingleton(dataSource);
 
 // CORS for React frontend
 builder.Services.AddCors(options =>
@@ -44,7 +54,7 @@ builder.Services.AddSingleton<IChatClient>(sp =>
                  ?? throw new Exception("OPENAI_API_KEY environment variable not found");
 
     var openAICLient = new OpenAI.Chat.ChatClient(
-        model: "gpt-40-mini",
+        model: "gpt-4o-mini",
         apiKey: apiKey).AsIChatClient();
   
     return openAICLient;

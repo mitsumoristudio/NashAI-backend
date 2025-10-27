@@ -12,7 +12,7 @@ public class SemanticSearchVB
           _vectorSearch = vectorSearch;
      }
 
-     public Task<IReadOnlyList<SearchResultModel>> SearchAsync(string text, string? documentId, int maxResults)
+     public Task<IEnumerable<DocumentEmbeddingVB>> SearchAsync(string text, string? documentId, int maxResults)
      {
           return _vectorSearch.SearchVectorAsync(query: text, documentId: documentId, maxResults: maxResults);
      }

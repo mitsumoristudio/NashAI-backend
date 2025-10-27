@@ -42,7 +42,7 @@ public class ProjectContext(DbContextOptions<ProjectContext> options): DbContext
         // DocumentEmbedding
         modelBuilder.Entity<DocumentEmbeddingVB>(entity =>
         {
-            entity.ToTable("DocumentEmbedding");
+            entity.ToTable("document_embedding");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.DocumentId).IsRequired();
             entity.Property(e => e.Embeddings).HasColumnType("vector(1536)")

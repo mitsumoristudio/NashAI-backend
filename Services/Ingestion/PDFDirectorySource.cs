@@ -54,7 +54,7 @@ public class PDFDirectorySource(string sourceDirectory) : IIngestionSource
             Key = Guid.CreateVersion7().ToString(),
             DocumentId = document.DocumentId,
             PageNumber = p.PageNumber,
-            Text = p.Text,
+            Content = p.Text,
         }));
     }
 

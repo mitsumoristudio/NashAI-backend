@@ -24,7 +24,7 @@ public class SemanticSearch_sqlite(
           {
               DocumentId = result.Record.DocumentId,
               PageNumber = result.Record.PageNumber,
-              Text = result.Record.Text,
+              Content = result.Record.Content,
               Score = result.Score,
           }).ToListAsync();
     }

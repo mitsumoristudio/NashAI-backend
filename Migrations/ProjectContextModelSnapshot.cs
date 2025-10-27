@@ -47,7 +47,7 @@ namespace NashAI_app.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DocumentEmbedding", (string)null);
+                    b.ToTable("document_embedding2", (string)null);
                 });
 
             modelBuilder.Entity("Project_Manassas.Model.EquipmentEntity", b =>

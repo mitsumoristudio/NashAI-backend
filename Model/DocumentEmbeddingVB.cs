@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NashAI_app.Model;
 using Pgvector;
 
+[Table("document_embedding")]
 public class DocumentEmbeddingVB
 {
     public Guid Id { get; set; } = Guid.NewGuid();

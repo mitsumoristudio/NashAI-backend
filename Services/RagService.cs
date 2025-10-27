@@ -22,7 +22,7 @@ public class RagService : IRagService
         if (userMessage == null) return "No user was found";
 
         var retrievedDocs = await _semanticSearchVb.SearchAsync(userMessage.MessageContent, filesystem, 5);
-        var context = string.Join("\n\n", retrievedDocs.Select(d => d.Text));
+        var context = string.Join("\n\n", retrievedDocs.Select(d => d.Content));
 
         var systemMessage = new ChatMessage(ChatRole.System, $"Use this context:\n{context}");
         var chatMessages = new List<ChatMessage> { systemMessage };
@@ -42,7 +42,7 @@ public class RagService : IRagService
         var contextBuilder = new StringBuilder();
         foreach (var doc in retrievedDocs)
         {
-            contextBuilder.AppendLine(doc.Text);
+            contextBuilder.AppendLine(doc.Content);
             contextBuilder.AppendLine("\n---\n");
         }
         
