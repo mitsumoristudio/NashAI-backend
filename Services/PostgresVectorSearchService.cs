@@ -6,11 +6,7 @@ namespace NashAI_app.Services;
 
 public class PostgresVectorSearchService: IVectorSearchService
 {
-    public interface IEmbeddingService
-    {
-        Task<float[]> CreateEmbeddingAsync(string text);
-    }
-
+    
     private readonly string _connectionString;
     private readonly IEmbeddingService _embeddingService;
 

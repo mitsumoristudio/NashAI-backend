@@ -222,3 +222,4 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.pdb
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/NashAI app.genruntimeconfig.cache
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/ref/NashAI app.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Dapper.dll
