@@ -70,7 +70,7 @@ public async Task<IActionResult> SendSemanticSearch([FromBody] ChatSessionVBMode
     var topResults = await _semanticSearchVB.SearchAsync(
         text: userMessage.MessageContent,
         documentId: null,
-        maxResults: 4
+        maxResults: 5
     );
 
     if (!topResults.Any())
@@ -93,16 +93,30 @@ public async Task<IActionResult> SendSemanticSearch([FromBody] ChatSessionVBMode
         });
     }
 
+    // Summarize top context before generating the assistant answer
+    
+    var summary = await _semanticSearchVB.SummarizeResultsAsync(userMessage.MessageContent, topResults);
     // Combine retrieved context into system prompt
-    var contextText = string.Join("\n\n---\n\n", topResults.Select(r => r.Content));
-    var systemPrompt = $@"
-You are a precise and factual assistant.
-Use ONLY the following context to answer the user question.
+ //   var contextText = string.Join("\n\n---\n\n", topResults.Select(r => r.Content));
+   
+ // Added systemPrompt to use Semantic Search
+//  var systemPrompt = $@"
+// You are a precise and factual assistant.
+// Use ONLY the following context to answer the user question.
+// If the context does not contain enough information, say:
+// 'I could not find relevant information in the provided sources.'
+//
+// ### Context:
+// {contextText}";
+ 
+// Gives overview of summarization
+ var systemPrompt = $@"
+You are an expert assistant using the following summary, overview or explanation to answer the question.
 If the context does not contain enough information, say:
 'I could not find relevant information in the provided sources.'
 
-### Context:
-{contextText}";
+### Summary:
+{summary}";
 
     // Prepare chat messages for AI client
     var chatMessages = new List<ChatMessage>
