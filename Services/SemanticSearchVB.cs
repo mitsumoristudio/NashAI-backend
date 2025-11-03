@@ -40,6 +40,44 @@ If information is missing, note it.
 
      }
 
+     public async Task<string> AnalyzeContractClause(string query, IEnumerable<DocumentEmbeddingVB> topResults)
+     {
+          var contextText = string.Join("\n\n---\n\n", topResults.Select(r => r.Content));
+          
+          var systemPrompt = $@"
+You are a legal analyst trained in contract interpretation.
+Use structured reasoning to explain the meaning of each clause.
+
+Apply these reasoning patterns:
+- Obligation: who must do what
+- Right: who may do what
+- Condition: when something applies
+- Limitation: what cannot be done
+- Remedy: what happens if breached
+
+### User Request:
+{query}
+
+### Clauses:
+{contextText}
+
+### Output:
+Summarize each clause using this format:
+Clause Type:
+Responsible Party:
+Trigger Condition:
+Effect:
+Notice/Deadline (if any):
+Plain-English Summary:
+";
+          var response = await _chatClient.GetResponseAsync(new[]
+          {
+               new ChatMessage(ChatRole.System, systemPrompt)
+          });
+          
+          return response?.ToString() ?? "No summary was generated";
+     }
+
      public Task<IEnumerable<DocumentEmbeddingVB>> SearchAsync(string text, string? documentId, int maxResults)
      {
           return _vectorSearch.SearchVectorAsync(query: text, documentId: documentId, maxResults: maxResults);

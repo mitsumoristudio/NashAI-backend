@@ -94,8 +94,11 @@ public async Task<IActionResult> SendSemanticSearch([FromBody] ChatSessionVBMode
     }
 
     // Summarize top context before generating the assistant answer
+   // var summary = await _semanticSearchVB.SummarizeResultsAsync(userMessage.MessageContent, topResults);
     
-    var summary = await _semanticSearchVB.SummarizeResultsAsync(userMessage.MessageContent, topResults);
+    // Give Legal Explanation 
+    var summary = await _semanticSearchVB.AnalyzeContractClause(userMessage.MessageContent, topResults);
+    
     // Combine retrieved context into system prompt
  //   var contextText = string.Join("\n\n---\n\n", topResults.Select(r => r.Content));
    
