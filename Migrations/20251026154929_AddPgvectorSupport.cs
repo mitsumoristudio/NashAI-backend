@@ -23,11 +23,13 @@ namespace NashAI_app.Migrations
                     DocumentId = table.Column<string>(type: "text", nullable: false),
                     PageNumber = table.Column<int>(type: "integer", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
-                    Embeddings = table.Column<Vector>(type: "vector(1536)", nullable: false)
+                    Embeddings = table.Column<Vector>(type: "vector(1536)",
+                        nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DocumentEmbedding", x => x.Id);
+                    table.UniqueConstraint("AK_DocumentEmbedding_DocumentId_PageNumber", x => new { x.DocumentId, x.PageNumber });
                 });
         }
 

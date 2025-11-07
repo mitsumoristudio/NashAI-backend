@@ -47,7 +47,11 @@ namespace NashAI_app.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("document_embedding2", (string)null);
+                    b.HasIndex("DocumentId", "PageNumber", "Content")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_Document_Page_Content");
+
+                    b.ToTable("document_embedding", (string)null);
                 });
 
             modelBuilder.Entity("Project_Manassas.Model.EquipmentEntity", b =>

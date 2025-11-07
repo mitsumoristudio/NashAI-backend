@@ -8,7 +8,7 @@ public class IngestedChunk
     private const string VectorDistanceFunction = DistanceFunction.CosineDistance;
 
     [VectorStoreKey]
-    public required string Key { get; set; }
+    public  string Key { get; set; }
 
     [VectorStoreData(IsIndexed = true)]
     public required string DocumentId { get; set; }

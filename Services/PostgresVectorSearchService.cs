@@ -12,7 +12,7 @@ public class PostgresVectorSearchService: IVectorSearchService
     
     private readonly NpgsqlDataSource _dataSource;
     private readonly IEmbeddingService _embeddingService;
-    private readonly string _connectionString;
+   
 
     public PostgresVectorSearchService(NpgsqlDataSource dataSource, IEmbeddingService embeddingService)
     {
@@ -20,10 +20,12 @@ public class PostgresVectorSearchService: IVectorSearchService
         _embeddingService = embeddingService; 
     }
     
+    // -------------------------------
+    // 🔍 SEMANTIC SEARCH
+    // -------------------------------
     public async Task<IEnumerable<DocumentEmbeddingVB>> SearchVectorAsync(string query, string? documentId, int maxResults)
     {
-        
-     //    var queryEmbedding = await _embeddingService.CreateEmbeddingAsync(query);
+
      var queryVector = new Vector(await _embeddingService.CreateEmbeddingAsync(query));
      
      var results = new List<DocumentEmbeddingVB>();
@@ -69,20 +71,50 @@ public class PostgresVectorSearchService: IVectorSearchService
         
     }
 
+    
+    // -------------------------------
+    // 📥 INSERT / UPDATE VECTOR DATA
+    // -------------------------------
     public async Task UpdateVectorAsync(IEnumerable<IngestedChunk> ingestedchunks)
     {
-        using var connection = new NpgsqlConnection(_connectionString);
-        await connection.OpenAsync();
-        
-        foreach (var r in ingestedchunks)
+        if (ingestedchunks == null || !ingestedchunks.Any())
         {
-            var sql = @"
-                INSERT INTO document_embedding (""DocumentId"", ""PageNumber"", ""Content"", ""Embeddings"")
-                VALUES (@DocumentId, @PageNumber, @Content, @Embeddings)
-                ON CONFLICT (""DocumentId"", ""PageNumber"")
-                DO UPDATE SET ""Content"" = @Content, ""Embeddings"" = @Embeddings";
+            return;
+        }
+        
+        
+        
+        await using var connection = await _dataSource.OpenConnectionAsync();
+        
+        foreach (var chunk in ingestedchunks)
+        {
+            const string sql = @"
+        INSERT INTO document_embedding (""DocumentId"", ""PageNumber"", ""Content"", ""Embeddings"")
+        VALUES (@DocumentId, @PageNumber, @Content, @Embeddings)
+        ON CONFLICT (""DocumentId"", ""PageNumber"")
+        DO UPDATE SET 
+            ""Content"" = EXCLUDED.""Content"", 
+            ""Embeddings"" = EXCLUDED.""Embeddings"";";
+            
+            // await using var cmd = new NpgsqlCommand(sql, connection);
+            //
+            // cmd.Parameters.AddWithValue("DocumentId", chunk.DocumentId);    
+            // cmd.Parameters.AddWithValue("PageNumber", chunk.PageNumber);
+            // cmd.Parameters.AddWithValue("Content", chunk.Content);
+            // cmd.Parameters.AddWithValue("Embeddings", chunk.Embeddings);
+            //
+            // await cmd.ExecuteNonQueryAsync();
+            //
+            var parameters = new
+            {
+                chunk.DocumentId,
+                chunk.PageNumber,
+                chunk.Content,
+                Embeddings = chunk.Embeddings.ToArray() // convert PgVector to float[]
+            };
 
-            await connection.ExecuteAsync(sql, r);
+            await connection.ExecuteAsync(sql, parameters);
+
         }
     }
 }

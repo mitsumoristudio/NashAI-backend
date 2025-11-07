@@ -75,6 +75,16 @@ public class ApiEndPoints
 
         public const string SEMANTIC_SEARCH_URLS = $"semantic_search";
         
+        public const string SUMMARY_SEMANTIC_SEARCH_URLS = $"summary";
+        
         //   public const string GET_CONVERSATION_HISTORY = $"history/{{sessionid}}";
+    }
+    
+    public static class Pdfs
+    {
+        public const string PdfBase = $"{ApiBase}/pdfs";
+
+        public const string INGEST_PDF = $"ingest";
+        
     }
 }

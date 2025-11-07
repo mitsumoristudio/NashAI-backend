@@ -35,9 +35,10 @@ public static class ApplicationServiceCollection
         services.AddScoped<IVectorSearchService, PostgresVectorSearchService>();
 
         services.AddScoped<IEmbeddingService, OpenAIEmbeddingService>();
-        services.AddScoped<SemanticSearchVB>();
+        services.AddScoped<SemanticSearchService>();
         services.AddScoped<IRagService, RagService>();
-
+        services.AddScoped<PDFIngestionService>();
+        
         
         return services;
     }
