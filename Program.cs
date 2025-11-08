@@ -5,11 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 using NashAI_app.utils;
 using OpenAI;
 using Npgsql;
 using Pgvector;
+using ZiggyCreatures.Caching.Fusion;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +39,14 @@ builder.Services.AddCors(options =>
     );
 });
 
+// Add FusionCach
+builder.Services.AddFusionCache()
+    .WithDefaultEntryOptions(new FusionCacheEntryOptions
+    {
+        Duration = TimeSpan.FromHours(1),
+        Priority = CacheItemPriority.High,
+        FailSafeThrottleDuration = TimeSpan.FromMinutes(1),
+    });
 
 // Controllers
 builder.Services.AddControllers()

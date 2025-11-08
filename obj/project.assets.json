@@ -3189,6 +3189,22 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "ZiggyCreatures.FusionCache/2.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Memory": "9.0.0"
+        },
+        "compile": {
+          "lib/net9.0/ZiggyCreatures.FusionCache.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/ZiggyCreatures.FusionCache.dll": {
+            "related": ".xml"
+          }
+        }
       }
     }
   },
@@ -9740,6 +9756,25 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "ZiggyCreatures.FusionCache/2.4.0": {
+      "sha512": "5lkrQ5yVCcXeobP4SbO5wu1Beo2w3aN5PPIwb4yRQ1/pIe21q33ElkTa0gRJrgqo2smH2eZkGE+S4ReX3uesMQ==",
+      "type": "package",
+      "path": "ziggycreatures.fusioncache/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net8.0/ZiggyCreatures.FusionCache.dll",
+        "lib/net8.0/ZiggyCreatures.FusionCache.xml",
+        "lib/net9.0/ZiggyCreatures.FusionCache.dll",
+        "lib/net9.0/ZiggyCreatures.FusionCache.xml",
+        "lib/netstandard2.0/ZiggyCreatures.FusionCache.dll",
+        "lib/netstandard2.0/ZiggyCreatures.FusionCache.xml",
+        "logo-128x128.png",
+        "ziggycreatures.fusioncache.2.4.0.nupkg.sha512",
+        "ziggycreatures.fusioncache.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -9769,7 +9804,8 @@
       "SixLabors.ImageSharp >= 3.1.11",
       "SixLabors.ImageSharp.Drawing >= 2.1.7",
       "Swashbuckle.AspNetCore >= 6.6.2",
-      "System.Linq.Async >= 6.0.1"
+      "System.Linq.Async >= 6.0.1",
+      "ZiggyCreatures.FusionCache >= 2.4.0"
     ]
   },
   "packageFolders": {
@@ -9920,6 +9956,10 @@
           "System.Linq.Async": {
             "target": "Package",
             "version": "[6.0.1, )"
+          },
+          "ZiggyCreatures.FusionCache": {
+            "target": "Package",
+            "version": "[2.4.0, )"
           }
         },
         "imports": [

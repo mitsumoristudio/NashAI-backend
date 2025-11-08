@@ -1,6 +1,11 @@
+using System.Security.Cryptography;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
 using NashAI_app.Model;
+using UglyToad.PdfPig.Fonts.Encodings;
+using UglyToad.PdfPig.Tokens;
+using ZiggyCreatures.Caching.Fusion;
+using Encoding = System.Text.Encoding;
 
 namespace NashAI_app.Services;
 
@@ -8,11 +13,55 @@ public class SemanticSearchService
 {
      private readonly IVectorSearchService _vectorSearch;
      private readonly IChatClient _chatClient;
+     private readonly IFusionCache _fusionCache;
 
-     public SemanticSearchService(IVectorSearchService vectorSearch, IChatClient chatClient)
+     public SemanticSearchService(IVectorSearchService vectorSearch, IChatClient chatClient, IFusionCache fusionCache)
      {
           _vectorSearch = vectorSearch;
           _chatClient = chatClient;
+          _fusionCache = fusionCache;
+     }
+     
+     // Simple hash helper for cache keys
+     private string Hash(string input) => Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(input)));
+
+     // CACHED Vector Search
+     public async Task<string> SummarizeOshaStandardAsync(string query, IEnumerable<DocumentEmbeddingVB> topResults)
+     {
+          // Combine semantic search results
+          var contextText = string.Join("\n\n---\n\n", topResults.Select(r => r.Content));
+          var contextLength = contextText.Length;
+          
+          var styleInstruction = contextLength > 2000
+               ? "Give a short overview (3–5 sentences) of the main OSHA requirements related to the question."
+               : "Give a clear, plain-English summary of the OSHA rules. Highlight the main safety obligations and employer responsibilities.";
+
+          var systemPrompt = $@"
+You are a workplace safety compliance assistant specializing in OSHA regulations.
+Your job is to summarize OSHA safety standards related to the user’s question.
+
+{styleInstruction}
+
+Focus on:
+- The key safety requirement(s)
+- What the employer must ensure
+- What the employee must do
+- Any important thresholds (distances, heights, limits)
+- Keep the explanation factual and concise.
+- If the text doesn’t include relevant details, say so.
+
+### User Question:
+{query}
+
+### OSHA Context:
+{contextText}";
+          
+          var response = await _chatClient.GetResponseAsync(new[]
+          {
+               new ChatMessage(ChatRole.System, systemPrompt)
+          });
+          
+          return response?.ToString() ?? "No summary was generated";
      }
 
      public async Task<string> SummarizeContractClause(string query, IEnumerable<DocumentEmbeddingVB> topResults)
@@ -20,6 +69,8 @@ public class SemanticSearchService
           // Combine semantic search results
           var contextText = string.Join("\n\n---\n\n", topResults.Select(r => r.Content));
           var contextLength = contextText.Length;
+          
+          var cacheKey = $"analysis:{Hash(query + contextText)}";
 
           string styleInstruction;
           if (contextLength > 2500)
@@ -59,18 +110,24 @@ If the context does not contain enough details to answer, say:
 ### Contract Context:
 {contextText}";
           
-          var response = await _chatClient.GetResponseAsync(new[]
-          {
-               new ChatMessage(ChatRole.System, systemPrompt)
-          });
-          
-          return response?.ToString() ?? "No summary was generated";
+               return await _fusionCache.GetOrSetAsync(cacheKey, async _ =>
+                    {
+                         var response = await _chatClient.GetResponseAsync(new[]
+                         {
+                              new ChatMessage(ChatRole.System, systemPrompt),
+                              new ChatMessage(ChatRole.User, $"Summarize this clause based on: {contextText}\n\nQuestion: {query}")
+                         });
 
+                         return response?.ToString() ?? "No summary was generated";
+                    },
+                    options => options.SetDuration(TimeSpan.FromHours(1))
+               );
      }
-
+     
      public async Task<string> AnalyzeContractClause(string query, IEnumerable<DocumentEmbeddingVB> topResults)
      {
           var contextText = string.Join("\n\n---\n\n", topResults.Select(r => r.Content));
+          var cacheKey = $"analysis:{Hash(query + contextText)}";
           
           var systemPrompt = $@"
 You are a legal analyst trained in contract interpretation.
@@ -101,12 +158,19 @@ Effect:
 Notice/Deadline (if any):
 Plain-English Summary:
 ";
-          var response = await _chatClient.GetResponseAsync(new[]
+
+          return await _fusionCache.GetOrSetAsync(cacheKey, async _ =>
           {
-               new ChatMessage(ChatRole.System, systemPrompt)
-          });
-          
-          return response?.ToString() ?? "No summary was generated";
+               var response = await _chatClient.GetResponseAsync(new[]
+               {
+                    new ChatMessage(ChatRole.System, systemPrompt),
+                    new ChatMessage(ChatRole.User, $"Analyze this clause based on: {contextText}\n\nQuestion: {query}")
+               });
+
+               return response?.ToString() ?? "No summary was generated";
+          },
+               options => options.SetDuration(TimeSpan.FromHours(1))
+               );
      }
 
      public Task<IEnumerable<DocumentEmbeddingVB>> SearchAsync(string text, string? documentId, int maxResults)
