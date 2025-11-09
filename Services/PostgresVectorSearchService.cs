@@ -81,32 +81,22 @@ public class PostgresVectorSearchService: IVectorSearchService
         {
             return;
         }
-        
-        
-        
         await using var connection = await _dataSource.OpenConnectionAsync();
         
         foreach (var chunk in ingestedchunks)
         {
             const string sql = @"
-        INSERT INTO document_embedding (""DocumentId"", ""PageNumber"", ""Content"", ""Embeddings"")
-        VALUES (@DocumentId, @PageNumber, @Content, @Embeddings)
-        ON CONFLICT (""DocumentId"", ""PageNumber"")
+        INSERT INTO document_embedding (""Id"", ""DocumentId"", ""PageNumber"", ""Content"", ""Embeddings"")
+        VALUES (@Id, @DocumentId, @PageNumber, @Content, @Embeddings)
+        ON CONFLICT (""DocumentId"", ""PageNumber"", ""Content"")
         DO UPDATE SET 
             ""Content"" = EXCLUDED.""Content"", 
             ""Embeddings"" = EXCLUDED.""Embeddings"";";
             
-            // await using var cmd = new NpgsqlCommand(sql, connection);
-            //
-            // cmd.Parameters.AddWithValue("DocumentId", chunk.DocumentId);    
-            // cmd.Parameters.AddWithValue("PageNumber", chunk.PageNumber);
-            // cmd.Parameters.AddWithValue("Content", chunk.Content);
-            // cmd.Parameters.AddWithValue("Embeddings", chunk.Embeddings);
-            //
-            // await cmd.ExecuteNonQueryAsync();
-            //
+     
             var parameters = new
             {
+                Id = Guid.NewGuid(),
                 chunk.DocumentId,
                 chunk.PageNumber,
                 chunk.Content,

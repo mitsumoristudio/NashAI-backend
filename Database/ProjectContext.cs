@@ -51,7 +51,7 @@ public class ProjectContext(DbContextOptions<ProjectContext> options): DbContext
             // Add unique constraint
             entity.HasIndex(e => new { e.DocumentId, e.PageNumber, e.Content })
                 .IsUnique()
-                .HasDatabaseName("UQ_Document_Page_Content");
+                .HasDatabaseName("constraint_1");
 
         });
         
