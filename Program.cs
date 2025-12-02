@@ -4,9 +4,12 @@ using Project_Manassas.Database;
 using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
 using System.Text;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
+using Nash_Manassas.Controller;
+using Nash_Manassas.Hub;
 using NashAI_app.utils;
 using OpenAI;
 using Npgsql;
@@ -18,6 +21,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Load environment variables from .env
 Env.Load();
 builder.Configuration.AddEnvironmentVariables();
+
+// -------------------------
+// SignalR implementation
+// -------------------------
+builder.Services.AddSignalR()
+    .AddJsonProtocol(opts =>
+    {
+        opts.PayloadSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
+
 
 // var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 //
@@ -32,7 +45,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactDev",
         policy => policy
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins("http://localhost:3000",
+                        "https://nashai4.onrender.com")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials()
@@ -72,6 +86,14 @@ builder.Services.AddSingleton<IChatClient>(sp =>
 
 
 builder.Services.AddApplicationServices();
+
+// ADD ProjectApiClients
+builder.Services.AddHttpClient<ProjectApiClients>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:5000/");
+});
+
+builder.Services.AddScoped<RpcController>();
 
 
 // --- JWT Authentication (example) ---
@@ -160,3 +182,37 @@ using (var scope = app.Services.CreateScope())
 
 app.MapGet("/", () => "Hello User!");
 app.Run();
+
+
+/*
+ * curl -X POST http://localhost:5000/api/rpc \
+   -H "Content-Type: application/json" \
+   -d '{"jsonrpc":"2.0","id":"1","method":"list_projects","params":{}}'
+
+
+   curl -X POST http://localhost:5000/api/rpc \
+   -H "Content-Type: application/json" \
+   -d '{
+     "jsonrpc": "2.0",
+     "id": "1",
+     "method": "find_project",
+     "params": { "projectName": "CDC Building Project" }
+   }'
+
+      curl -X POST http://localhost:5000/api/rpc \
+   -H "Content-Type: application/json" \
+   -d '{"jsonrpc":"2.0","id":"1","method":"create_project","params":{
+       "id":"502299a-8e46-414e-8e08-5b8897a260df",
+       "projectName":"Vanderbilt medical center garage parking",
+       "description":"Vanderbilt student housing",
+       "projectNumber":"1290033",
+       "location":"Nashville, TN",
+       "contractor":"Edward Kayan",
+       "projectEstimate":423000,
+       "projectManager":"Mia Mitsumori",
+       "createdAt":"2025-11-27T00:00:00Z",
+       "userId":"cbda9ada-33d0-4dbe-a219-b17de1fba61e"
+   }}'
+
+
+*/
