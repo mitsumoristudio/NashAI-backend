@@ -50,6 +50,7 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials()
+            .SetIsOriginAllowed(_ => true)
     );
 });
 
@@ -172,6 +173,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<ChatHub>("/chatHub");
 
 // Example: ingest PDFs from /wwwroot/Data at startup
 using (var scope = app.Services.CreateScope())
