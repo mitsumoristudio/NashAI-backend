@@ -67,6 +67,7 @@ public class RpcController: ControllerBase
         
         if (req.Params.Value.TryGetProperty("projectNumber", out var pnn))
             projectNumber = pnn.GetString();
+        
         if (req.Params.Value.TryGetProperty("id", out var idp))
             id = Guid.Parse(idp.GetString());
         
@@ -106,16 +107,16 @@ public class RpcController: ControllerBase
 public class JsonRpcRequest
 {
     public string Jsonrpc { get; set; } = "2.0";
-    public string Id { get; set; } = "";
+    public object Id { get; set; } = "";
     public string Method { get; set; } = "";
     public JsonElement? Params { get; set; }
 }
 
 public static class JsonRpcResponse
 {
-    public static object Ok(string id, object result) =>
+    public static object Ok(object id, object result) =>
         new { jsonrpc = "2.0", id, result };
 
-    public static object Error(string id, int code, string message) =>
+    public static object Error(object id, int code, string message) =>
         new { jsonrpc = "2.0", id, error = new { code, message } };
 }
