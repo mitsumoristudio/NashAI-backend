@@ -3,6 +3,7 @@ using NashAI_app.Model;
 
 namespace NashAI_app.Services;
 
+// Used only for localstorage and for demonstration purpose only
 public class SemanticSearch_sqlite(
     VectorStoreCollection<string, IngestedChunk> vectorCollection)
 {

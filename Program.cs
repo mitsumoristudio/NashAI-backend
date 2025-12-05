@@ -45,7 +45,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactDev",
         policy => policy
-            .WithOrigins("http://localhost:3000",
+            .WithOrigins( "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net",
+                        "http://localhost:3000",
                         "https://nashai4.onrender.com")
             .AllowAnyMethod()
             .AllowAnyHeader()
