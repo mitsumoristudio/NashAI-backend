@@ -19,7 +19,16 @@ public class ProjectApiClients
     public ProjectApiClients(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri("http://localhost:5000/");
+        {/* for local development*/}
+      //  _httpClient.BaseAddress = new Uri("http://localhost:5000/");
+
+      if (_httpClient.BaseAddress == null)
+      {
+          var baseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API") ??
+                        "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
+          
+          _httpClient.BaseAddress = new Uri(baseUrl);
+      }
     }
 
     public async Task<List<ProjectResponse>> ListProjectsAsync()

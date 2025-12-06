@@ -51,7 +51,6 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials()
-            .SetIsOriginAllowed(_ => true)
     );
 });
 
@@ -90,13 +89,21 @@ builder.Services.AddSingleton<IChatClient>(sp =>
 builder.Services.AddApplicationServices();
 
 // ADD ProjectApiClients
-builder.Services.AddHttpClient<ProjectApiClients>(client =>
-{
-    client.BaseAddress = new Uri("https://localhost:5000/");
-});
+// builder.Services.AddHttpClient<ProjectApiClients>(client =>
+// {
+    {/* For Local Development*/}
+ //   client.BaseAddress = new Uri("https://localhost:5000/");
+ 
+ {/* For Production Deployment*/}
+//  string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")
+//      ?? "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
+//  
+//  client.BaseAddress = new Uri(azureBaseUrl);
+// });
 
-builder.Services.AddScoped<RpcController>();
+ builder.Services.AddHttpClient<ProjectApiClients>();
 
+// builder.Services.AddScoped<RpcController>();
 
 // --- JWT Authentication (example) ---
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -189,6 +196,7 @@ app.Run();
 
 
 /*
+ // Development curl
  * curl -X POST http://localhost:5000/api/rpc \
    -H "Content-Type: application/json" \
    -d '{"jsonrpc":"2.0","id":"1","method":"list_projects","params":{}}'
@@ -217,6 +225,20 @@ app.Run();
        "createdAt":"2025-11-27T00:00:00Z",
        "userId":"cbda9ada-33d0-4dbe-a219-b17de1fba61e"
    }}'
+   
+   // Production curl
+  curl -X POST "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net/api/rpc" \
+   -H "Content-Type: application/json" \
+   -d '{"jsonrpc":"2.0","id":"1","method":"list_projects","params":{}}'
+
+   curl -X POST "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net/api/rpc" \
+   -H "Content-Type: application/json" \
+   -d '{
+     "jsonrpc": "2.0",
+     "id": "1",
+     "method": "find_project",
+     "params": { "projectName": "Project Panthers" }
+   }'
 
 
 */
