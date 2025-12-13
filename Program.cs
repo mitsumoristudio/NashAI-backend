@@ -14,6 +14,7 @@ using NashAI_app.utils;
 using OpenAI;
 using Npgsql;
 using Pgvector;
+using Project_Manassas.Service;
 using ZiggyCreatures.Caching.Fusion;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -91,10 +92,10 @@ builder.Services.AddApplicationServices();
 // ADD ProjectApiClients
 // builder.Services.AddHttpClient<ProjectApiClients>(client =>
 // {
-    {/* For Local Development*/}
+ //   {/* For Local Development*/}
  //   client.BaseAddress = new Uri("https://localhost:5000/");
  
- {/* For Production Deployment*/}
+ //{/* For Production Deployment*/}
 //  string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")
 //      ?? "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
 //  
@@ -164,6 +165,13 @@ builder.Services.AddScoped<DataIngestorVB>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Authentication Email Service
+builder.Services.AddScoped<IEmailVerificationService, EmailVerificationService>();
+
+// ADD SendGrid Service
+builder.Services.AddScoped<IEmailSenderService, SendGridEmailService>();
+
+
 // Build app
 var app = builder.Build();
 
@@ -179,6 +187,7 @@ app.UseRouting();
 app.UseCors("AllowReactDev");
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

@@ -224,3 +224,7 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/obj/Debug/net9.0/ref/NashAI app.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Dapper.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/ZiggyCreatures.FusionCache.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/Newtonsoft.Json.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SendGrid.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SendGrid.Extensions.DependencyInjection.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/StarkbankEcdsa.dll

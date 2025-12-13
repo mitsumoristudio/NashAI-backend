@@ -40,10 +40,10 @@ public class ApiEndPoints
         public const string DELETE_URL_USER_CONSTANT = $"{{id:guid}}";
         
         public const string UPDATE_URL_USER_CONSTANT = $"{{id:guid}}";
-
-       
         
         public const string LOGOUT_URL_USER_CONSTANT = $"logout";
+        
+        public const string? REGISTER_URL_USER_W_EMAIL = $"registerEmail";
     }
     
     public static class Equipments
@@ -81,6 +81,18 @@ public class ApiEndPoints
         
         //   public const string GET_CONVERSATION_HISTORY = $"history/{{sessionid}}";
     }
+    
+    public static class Messages
+    {
+        public const string Base = $"{ApiBase}/message";
+        
+        public const string CREATE_URL_MESSAGE = $"sendEmail";
+        
+        public const string SEND_CONTACT_MESSAGE = $"sendContactMessage";
+        
+        public const string SEND_VERIFICATION_EMAIL = $"sendVerificationEmail";
+    }
+
     
     public static class Pdfs
     {

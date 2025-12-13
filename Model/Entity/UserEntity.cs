@@ -13,4 +13,15 @@ public class UserEntity
     public bool? IsAdmin { get; set; } = false;
     
     public ICollection<ProjectEntity>? Projects { get; set; }
+    
+    public bool EmailConfirmed { get; set; } = false;
+    
+    public string? EmailVerificationToken { get; set; }
+    
+    public DateTime? EmailVerificationTokenExpiration { get; set; } 
+    
+    public string? PasswordResetToken { get; set; }
+    
+    public DateTime? PasswordResetTokenExpiration { get; set; }
+
 }

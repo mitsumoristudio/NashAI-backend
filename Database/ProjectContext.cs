@@ -19,6 +19,8 @@ public class ProjectContext(DbContextOptions<ProjectContext> options): DbContext
     
     public DbSet<EquipmentEntity> Equipments => Set<EquipmentEntity>();
     
+    public DbSet<VerificationCode> VerificationCodes => Set<VerificationCode>();
+    
     // New vector-related tables
     public DbSet<DocumentEmbeddingVB> DocumentEmbeddings => Set<DocumentEmbeddingVB>();
     
@@ -53,6 +55,12 @@ public class ProjectContext(DbContextOptions<ProjectContext> options): DbContext
                 .IsUnique()
                 .HasDatabaseName("constraint_1");
 
+        });
+        
+        modelBuilder.Entity<VerificationCode>(entity =>
+        {
+            entity.ToTable("VerificationCodes");
+            entity.HasKey(e => e.Id);
         });
         
         

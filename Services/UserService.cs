@@ -113,6 +113,44 @@ public class UserService : IUserService
       await _dbContext.SaveChangesAsync();
       return true;
    }
+   
+   public async Task<RegistrationResponse?> RegisterEmailUser(CreateUserRequest user)
+   {
+      if (await _dbContext.Users.AnyAsync(p => p.Email == user.Email))
+         return null;
+      
+      var verificationToken = Guid.NewGuid().ToString();
+
+      var newUser = new UserEntity
+      {
+         Id = Guid.NewGuid(),
+         UserName = user.UserName,
+         Email = user.Email,
+         PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.Password),
+         EmailConfirmed = false,
+         EmailVerificationToken = verificationToken,
+         EmailVerificationTokenExpiration = DateTime.UtcNow.AddHours(12)
+      };
+
+      _dbContext.Users.Add(newUser);
+      await _dbContext.SaveChangesAsync();
+      
+      // Come back to it later
+      // var verifyUrl = $"https://morisolution.org/verifyEmail?token={verificationToken}";
+      
+      // await _emailSender.SendEmailAsync(
+      //    newUser.Email,
+      //    "Verify your email",
+      //    $"Click the link to verify your email: <a href='{verifyUrl}'>Verify</a>"
+      // );
+
+      return new RegistrationResponse
+      {
+         Id = newUser.Id,
+         UserName = newUser.UserName,
+         Email = newUser.Email,
+      };
+   }
 
    public async Task<RegistrationResponse?> RegisterAsyncUser(CreateUserRequest user)
    {

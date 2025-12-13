@@ -39,6 +39,8 @@
     <PackageReference Include="Npgsql" Version="9.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="ZiggyCreatures.FusionCache" Version="2.4.0" />
+    <PackageReference Include="SendGrid" Version="9.29.3" />
+    <PackageReference Include="SendGrid.Extensions.DependencyInjection" Version="1.0.1" />
     
   </ItemGroup>
 
