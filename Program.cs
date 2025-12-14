@@ -8,7 +8,6 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
-using Nash_Manassas.Controller;
 using Nash_Manassas.Hub;
 using NashAI_app.utils;
 using OpenAI;
@@ -90,17 +89,17 @@ builder.Services.AddSingleton<IChatClient>(sp =>
 builder.Services.AddApplicationServices();
 
 // ADD ProjectApiClients
-// builder.Services.AddHttpClient<ProjectApiClients>(client =>
-// {
+builder.Services.AddHttpClient<ProjectApiClients>(client =>
+{
  //   {/* For Local Development*/}
  //   client.BaseAddress = new Uri("https://localhost:5000/");
  
  //{/* For Production Deployment*/}
-//  string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")
-//      ?? "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
-//  
-//  client.BaseAddress = new Uri(azureBaseUrl);
-// });
+ string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")
+     ?? "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
+ 
+ client.BaseAddress = new Uri(azureBaseUrl);
+});
 
  builder.Services.AddHttpClient<ProjectApiClients>();
 

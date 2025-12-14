@@ -154,8 +154,8 @@ public class AuthController : ControllerBase
         
         await _dbContext.SaveChangesAsync();
         
-       // var resetUrl =  $"https://morisolution.org/resetPassword?token={user.PasswordResetToken}";
-        var resetUrl = $"http://localhost:3000/resetPassword?token={user.PasswordResetToken}";
+        var resetUrl =  $"https://morisolution.org/resetPassword?token={user.PasswordResetToken}";
+      //  var resetUrl = $"http://localhost:3000/resetPassword?token={user.PasswordResetToken}";
         
         await _emailSenderService.SendEmailAsync(
             request.Email,
