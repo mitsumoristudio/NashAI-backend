@@ -92,16 +92,16 @@ builder.Services.AddApplicationServices();
 builder.Services.AddHttpClient<ProjectApiClients>(client =>
 {
  //   {/* For Local Development*/}
- //   client.BaseAddress = new Uri("https://localhost:5000/");
+ client.BaseAddress = new Uri("https://localhost:5000/");
  
  //{/* For Production Deployment*/}
- string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")
-     ?? "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
- 
- client.BaseAddress = new Uri(azureBaseUrl);
+ // string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")
+ //     ?? "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
+ //
+ // client.BaseAddress = new Uri(azureBaseUrl);
 });
 
- builder.Services.AddHttpClient<ProjectApiClients>();
+// builder.Services.AddHttpClient<ProjectApiClients>();
 
 // builder.Services.AddScoped<RpcController>();
 
@@ -193,11 +193,14 @@ app.MapControllers();
 app.MapHub<ChatHub>("/chatHub");
 
 // Example: ingest PDFs from /wwwroot/Data at startup
-using (var scope = app.Services.CreateScope())
-{
-    var ingestor = scope.ServiceProvider.GetRequiredService<DataIngestorVB>();
-    await ingestor.IngestPdfsAsync(Path.Combine(builder.Environment.WebRootPath, "Data"));
-}
+// using (var scope = app.Services.CreateScope())
+// {
+//     if (app.Environment.IsDevelopment())
+//     {
+//         var ingestor = scope.ServiceProvider.GetRequiredService<DataIngestorVB>();
+//             await ingestor.IngestPdfsAsync(Path.Combine(builder.Environment.WebRootPath, "Data"));
+//     }
+// }
 
 app.MapGet("/", () => "Hello User!");
 app.Run();

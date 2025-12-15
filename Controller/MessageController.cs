@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Nash_Manassas.Dto;
 using NashAI_app.utils;
@@ -60,8 +62,9 @@ public class MessageController: ControllerBase
     [HttpPost(ApiEndPoints.Messages.SEND_VERIFICATION_EMAIL)]
     public async Task<IActionResult> SendVerificationEmailAsync([FromBody] string userEmail)
     {
-        var token = Guid.NewGuid().ToString();
-        var verifyUrl = $"https://morisolution.org/verifyEmail?token={token}";
+        var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+        var hashedToken = SHA256.HashData(Encoding.UTF8.GetBytes(token));
+        var verifyUrl = $"https://morisolution.org/verifyEmail?token={hashedToken}";
 
         var body = $@"
             <h2>Verify Your Email</h2>

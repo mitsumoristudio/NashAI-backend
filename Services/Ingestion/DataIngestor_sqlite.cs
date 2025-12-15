@@ -51,7 +51,7 @@ public class DataIngestor_sqlite(
             var chunksToDelete = await chunksCollection.GetAsync(record => record.DocumentId == documentId, int.MaxValue).ToListAsync();
             if (chunksToDelete.Count != 0)
             {
-                await chunksCollection.DeleteAsync(chunksToDelete.Select(r => r.Key));
+                await chunksCollection.DeleteAsync(chunksToDelete.Select(r => r.Key)!);
             }
         }
     }

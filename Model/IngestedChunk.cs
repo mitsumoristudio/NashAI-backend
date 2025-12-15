@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.VectorData;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.VectorData;
 
 namespace NashAI_app.Services;
 
@@ -8,7 +9,8 @@ public class IngestedChunk
     private const string VectorDistanceFunction = DistanceFunction.CosineDistance;
 
     [VectorStoreKey]
-    public  string Key { get; set; }
+    
+    public  string? Key { get; set; }
 
     [VectorStoreData(IsIndexed = true)]
     public required string DocumentId { get; set; }
@@ -22,5 +24,6 @@ public class IngestedChunk
     [VectorStoreVector(VectorDimensions, DistanceFunction = VectorDistanceFunction)]
     public string? Vector => Content;
     
-    public float[] Embeddings { get; set; }
+    [Required] 
+    public float[]? Embeddings { get; set; }
 }

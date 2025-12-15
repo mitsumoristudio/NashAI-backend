@@ -38,7 +38,7 @@ public class ProjectApiClients
 
         var stream = await response.Content.ReadAsStreamAsync();
         var wrapper = await JsonSerializer.DeserializeAsync<ProjectsResponse>(stream, _jsonOptions);
-        return (List<ProjectResponse>)wrapper?.Items ?? new List<ProjectResponse>();
+        return (List<ProjectResponse>)wrapper?.Items! ?? new List<ProjectResponse>();
     }
     
     public async Task<ProjectResponse> FindProjectByNameAsync(string name)
@@ -47,7 +47,7 @@ public class ProjectApiClients
         var response = await _httpClient.GetAsync(url);
 
         if (!response.IsSuccessStatusCode)
-            return null;
+            throw new HttpRequestException($"Project search returned {response.StatusCode}");
 
         var json = await response.Content.ReadAsStringAsync();
         
@@ -55,7 +55,7 @@ public class ProjectApiClients
         var projects = JsonSerializer.Deserialize<ProjectResponse>(json, _jsonOptions);
         
         // Return project
-        return projects;
+        return projects ?? throw new InvalidOperationException();
         
     }
 
@@ -80,6 +80,6 @@ public class ProjectApiClients
         var responseString = await response.Content.ReadAsStringAsync();
         var createproject = JsonSerializer.Deserialize<ProjectEntity>(responseString, _jsonOptions);
         
-        return createproject;
+        return createproject ?? throw new InvalidOperationException();
     }
 }

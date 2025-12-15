@@ -59,7 +59,8 @@ public class EquipmentController: ControllerBase
         [FromBody] UpdateEquipmentRequest request)
     {
         var equipmentExists = await _equipmentService.UpdateEquipmentAsync(id, request);
-        if (equipmentExists == null) return NotFound();
+        
+       // if (equipmentExists == null) return NotFound();
         return Ok(equipmentExists);
     }
     

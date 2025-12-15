@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Pgvector;
 
 namespace NashAI_app.Model;
-using Pgvector;
 
 [Table("document_embedding")]
 public class DocumentEmbeddingVB
@@ -15,5 +15,5 @@ public class DocumentEmbeddingVB
     public string Content {get; set;} = string.Empty;
 
     [Column(TypeName = "vector(1536)")] 
-    public Vector Embeddings { get; set; } = default;
+    public Vector Embeddings { get; set; } = default!;
 }

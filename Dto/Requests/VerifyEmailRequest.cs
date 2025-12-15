@@ -1,7 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Project_Manassas.Dto.Requests;
 
 public class VerifyEmailRequest
 {
-    public string Email { get; set; }
-    public string Code { get; set; }
+
+    public required string Email { get; set; }
+    
+  
+    public required string Code { get; set; }
 }

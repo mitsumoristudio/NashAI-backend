@@ -92,19 +92,21 @@ public class PostgresVectorSearchService: IVectorSearchService
         DO UPDATE SET 
             ""Content"" = EXCLUDED.""Content"", 
             ""Embeddings"" = EXCLUDED.""Embeddings"";";
-            
-     
-            var parameters = new
+
+
+            if (chunk.Embeddings != null)
             {
-                Id = Guid.NewGuid(),
-                chunk.DocumentId,
-                chunk.PageNumber,
-                chunk.Content,
-                Embeddings = chunk.Embeddings.ToArray() // convert PgVector to float[]
-            };
+                var parameters = new
+                {
+                    Id = Guid.NewGuid(),
+                    chunk.DocumentId,
+                    chunk.PageNumber,
+                    chunk.Content,
+                    Embeddings = chunk.Embeddings.ToArray() // convert PgVector to float[]
+                };
 
-            await connection.ExecuteAsync(sql, parameters);
-
+                await connection.ExecuteAsync(sql, parameters);
+            }
         }
     }
 }

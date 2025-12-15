@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Nash_Manassas.Hub;
@@ -69,7 +70,7 @@ public class RpcController: ControllerBase
             projectNumber = pnn.GetString();
         
         if (req.Params.Value.TryGetProperty("id", out var idp))
-            id = Guid.Parse(idp.GetString());
+            id = Guid.Parse(idp.GetString() ?? String.Empty);
         
         if (string.IsNullOrWhiteSpace(projectName))
             return Ok(JsonRpcResponse.Error(req.Id, -32602, "Missing required param: projectName"));
@@ -85,12 +86,11 @@ public class RpcController: ControllerBase
         {
             return Ok(JsonRpcResponse.Error(req.Id, -32602, "Missing or invalid params"));
         }
-        
-        if (req == null) 
-            return Ok(JsonRpcResponse.Error(req.Id, -32602, "Missing required param"));
 
         var request = req.Params.Value.Deserialize<CreateProjectRequest>();
 
+        Debug.Assert(request != null, nameof(request) + " != null");
+        
         var created = await _projectClient.CreateProjectAsync(request);
         
         return Ok(JsonRpcResponse.Ok(req.Id, created));

@@ -3,9 +3,6 @@ using OpenAI;
 using OpenAI.Embeddings;
 using System.Linq;
 
-using OpenAI;
-
-
 public class OpenAIEmbeddingService : IEmbeddingService
 {
     private readonly OpenAIClient _client;

@@ -50,7 +50,7 @@ public class DocumentController: ControllerBase
         return Ok(new
         {
             Message = "PDF uploaded successfully.",
-            FileName = formFile.FileName,
+            FileName = formFile?.FileName,
             DocumentId = documentId
         });
     }

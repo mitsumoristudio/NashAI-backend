@@ -133,8 +133,8 @@ public class AuthController : ControllerBase
         if (!isValid) return BadRequest("Invalid or expired code.");
         
         var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == request.Email);
-        user.EmailConfirmed = true;
-        
+        if (user != null) user.EmailConfirmed = true;
+
         await _dbContext.SaveChangesAsync();
         
         return Ok(new {message = "Email verified successfully. Verification email has been sent." });
