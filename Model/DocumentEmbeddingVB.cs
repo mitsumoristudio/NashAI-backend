@@ -14,6 +14,7 @@ public class DocumentEmbeddingVB
     
     public string Content {get; set;} = string.Empty;
 
+    // Leave as default for Embeddings to work on frontend
     [Column(TypeName = "vector(1536)")] 
-    public Vector Embeddings { get; set; } = default!;
+    public Vector Embeddings { get; set; } = default;
 }
