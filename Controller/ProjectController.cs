@@ -98,7 +98,7 @@ public class ProjectController:  ControllerBase
   
   // POST ProjectChatService
   [HttpPost(ApiEndPoints.Projects.HandleProjectChat)]
-  public async Task<IActionResult> HandleProjectChat([FromQuery] ChatSessionVBModel session)
+  public async Task<IActionResult> HandleProjectChat([FromBody] ChatSessionVBModel session)
   {
       var project = await _projectChatService.HandleProjectChatAsync(session: session);
       

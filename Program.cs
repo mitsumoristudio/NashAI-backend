@@ -70,6 +70,8 @@ builder.Services.AddControllers()
     {
         opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
         opt.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+        opt.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter()
+        );
     });
 
 // Register IChatClient for OpenAI
@@ -93,7 +95,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddHttpClient<ProjectApiClients>(client =>
 {
  //   {/* For Local Development*/}
- client.BaseAddress = new Uri("https://localhost:5000/");
+ client.BaseAddress = new Uri("http://localhost:5000/");
  
  //{/* For Production Deployment*/}
  // string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")

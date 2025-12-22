@@ -2,9 +2,9 @@ namespace NashAI_app.Model;
 
 public class ChatResponseDto
 {
-    public string SessionId { get; set; }
-    public string Role { get; set; } 
-    public string MessageContent {get; set;}
+    public required string SessionId { get; set; }
+    public string Role { get; set; } = "";
+    public string MessageContent { get; set; } = "";
     public DateTime CreatedAt { get; set; }
 
     public static ChatResponseDto From(

@@ -18,7 +18,18 @@ public class ProjectChatService: IProjectChatService
     public async Task<ChatResponseDto> HandleProjectChatAsync(ChatSessionVBModel session)
     {
         var userMessage = session.Messages
-            .Last(m => m.Role == ChatRole.User);
+            .LastOrDefault(m => m.Role == ChatRole.User);
+
+        foreach (var msg in session.Messages)
+        {
+            Console.WriteLine($"ROLE: {msg.Role} | CONTENT: {msg.MessageContent}");
+        }
+
+        
+        if (userMessage == null)
+        {
+            throw new ArgumentException("No user message found in chat session");
+        }
         
         // Fetch Project data from Postgres via API
         var fetchProjects = await _projectClients.ListProjectsAsync();
