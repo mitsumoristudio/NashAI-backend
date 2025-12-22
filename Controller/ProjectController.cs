@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NashAI_app;
+using NashAI_app.Model;
+using NashAI_app.Services;
 using NashAI_app.utils;
 using Project_Manassas.Database;
 using Project_Manassas.Dto.Requests;
@@ -19,11 +21,13 @@ public class ProjectController:  ControllerBase
 {
     private readonly IProjectService _projectService;
     private readonly IWebHostEnvironment _environment;
+    private readonly IProjectChatService _projectChatService;
 
-    public ProjectController(IProjectService projectservice, IWebHostEnvironment environment)
+    public ProjectController(IProjectService projectservice, IWebHostEnvironment environment, IProjectChatService projectChatService)
     {
       _projectService = projectservice;
       _environment = environment;
+      _projectChatService = projectChatService;
     }
     
     // GET/ api/products
@@ -88,6 +92,15 @@ public class ProjectController:  ControllerBase
       
       if (project == null)
           return NotFound(new { message = $"No project found with name '{projectName}'" });
+      
+      return Ok(project);
+  }
+  
+  // POST ProjectChatService
+  [HttpPost(ApiEndPoints.Projects.HandleProjectChat)]
+  public async Task<IActionResult> HandleProjectChat([FromQuery] ChatSessionVBModel session)
+  {
+      var project = await _projectChatService.HandleProjectChatAsync(session: session);
       
       return Ok(project);
   }

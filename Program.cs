@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 using Nash_Manassas.Hub;
+using NashAI_app.Services;
 using NashAI_app.utils;
 using OpenAI;
 using Npgsql;
@@ -169,6 +170,9 @@ builder.Services.AddScoped<IEmailVerificationService, EmailVerificationService>(
 
 // ADD SendGrid Service
 builder.Services.AddScoped<IEmailSenderService, SendGridEmailService>();
+
+// Add ProjectChatService
+builder.Services.AddScoped<IProjectChatService, ProjectChatService>();
 
 
 // Build app

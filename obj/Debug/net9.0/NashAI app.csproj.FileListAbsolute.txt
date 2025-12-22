@@ -228,3 +228,4 @@
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SendGrid.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/SendGrid.Extensions.DependencyInjection.dll
 /Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/StarkbankEcdsa.dll
+/Users/satoshimitsumori/RiderProjects/NashAI app/NashAI app/bin/Debug/net9.0/System.Net.WebSockets.WebSocketProtocol.dll

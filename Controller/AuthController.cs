@@ -60,7 +60,6 @@ public class AuthController : ControllerBase
         //return Ok(createUser);
     }
     
-    
     // POST/ api/users/{id}
     [Authorize]
     [HttpPut(ApiEndPoints.Users.UPDATE_URL_USER_CONSTANT)]
@@ -154,8 +153,8 @@ public class AuthController : ControllerBase
         
         await _dbContext.SaveChangesAsync();
         
-        var resetUrl =  $"https://morisolution.org/resetPassword?token={user.PasswordResetToken}";
-      //  var resetUrl = $"http://localhost:3000/resetPassword?token={user.PasswordResetToken}";
+      //  var resetUrl =  $"https://morisolution.org/resetPassword?token={user.PasswordResetToken}";
+        var resetUrl = $"http://localhost:3000/resetPassword?token={user.PasswordResetToken}";
         
         await _emailSenderService.SendEmailAsync(
             request.Email,

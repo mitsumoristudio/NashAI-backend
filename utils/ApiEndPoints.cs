@@ -25,6 +25,8 @@ public class ApiEndPoints
         public const string SEARCH_BY_NAME = $"search";
 
         private const string user = "user";
+
+        public const string HandleProjectChat = $"projectChat";
     }
 
     public static class Users
