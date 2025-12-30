@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using NashAI_app;
+using NashAI_app.Model;
+using NashAI_app.Services;
 using NashAI_app.utils;
 using Project_Manassas.Dto.Requests;
 using Project_Manassas.Dto.Responses;
@@ -14,11 +16,13 @@ public class EquipmentController: ControllerBase
 {
     private readonly IEquipmentService _equipmentService;
     private readonly IWebHostEnvironment _environment;
+    private readonly IEquipmentChatService _equipmentChatService;
 
-    public EquipmentController(IEquipmentService equipmentService, IWebHostEnvironment environment)
+    public EquipmentController(IEquipmentService equipmentService, IWebHostEnvironment environment, IEquipmentChatService equipmentChatService)
     {
         _equipmentService = equipmentService;
         _environment = environment;
+        _equipmentChatService = equipmentChatService;
     }
     
     // GET/ api/equipments
@@ -70,6 +74,15 @@ public class EquipmentController: ControllerBase
     {
         var equipments = await _equipmentService.GetEquipmentByUserIdAsync(userId);
         if (equipments == null) return NotFound("Equipment not found. Please contact admin");
+        return Ok(equipments);
+    }
+    
+    // POST EquipmentChatService
+    [HttpPost(ApiEndPoints.Equipments.HandleEquipmentChat)]
+    public async Task<IActionResult> HandleEquipmentChat([FromBody] ChatSessionVBModel session)
+    {
+        var equipments = await _equipmentChatService.HandleEquipmentChatAsync(session: session);
+        
         return Ok(equipments);
     }
     

@@ -30,14 +30,15 @@ public class EquipmentApiClient
         }
     }
     
-    public async Task<List<EquipmentResponse>> ListProjectsAsync()
+    public async Task<List<EquipmentResponse>> ListEquipmentsAsync()
     {
-        var response = await _httpClient.GetAsync("api/projects");
+        var response = await _httpClient.GetAsync("api/equipments");
         response.EnsureSuccessStatusCode();
 
         var stream = await response.Content.ReadAsStreamAsync();
-        var wrapper = await JsonSerializer.DeserializeAsync<ProjectsResponse>(stream, _jsonOptions);
-        return (List<EquipmentResponse>)wrapper?.Items ?? new List<EquipmentResponse>();
+        var wrapper = await JsonSerializer.DeserializeAsync<EquipmentsResponse>(stream, _jsonOptions);
+        return (List<EquipmentResponse>)wrapper?.Items! ?? new List<EquipmentResponse>();;
+        
     }
 
     public async Task<EquipmentResponse> FindEquipmentByNameAsync(string name)

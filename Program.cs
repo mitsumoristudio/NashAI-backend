@@ -95,18 +95,19 @@ builder.Services.AddApplicationServices();
 builder.Services.AddHttpClient<ProjectApiClients>(client =>
 {
  //   {/* For Local Development*/}
-// client.BaseAddress = new Uri("http://localhost:5000/");
+client.BaseAddress = new Uri("http://localhost:5000/");
  
  //{/* For Production Deployment*/}
- string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")
-     ?? "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
- 
- client.BaseAddress = new Uri(azureBaseUrl);
+ // string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")
+ //     ?? "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
+ //
+ // client.BaseAddress = new Uri(azureBaseUrl);
 });
 
 // Add EquipmentApiClients
 builder.Services.AddHttpClient<EquipmentApiClient>(client =>
 {
+    //   {/* For Local Development*/}
     client.BaseAddress = new Uri("http://localhost:5000/");
 });
 
@@ -180,6 +181,8 @@ builder.Services.AddScoped<IEmailSenderService, SendGridEmailService>();
 // Add ProjectChatService
 builder.Services.AddScoped<IProjectChatService, ProjectChatService>();
 
+// Add EquipmentChatService
+builder.Services.AddScoped<IEquipmentChatService, EquipmentChatService>();
 
 // Build app
 var app = builder.Build();

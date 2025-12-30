@@ -65,6 +65,8 @@ public class ApiEndPoints
         public const string GET_URL_MYEQUIPMENT = $"{user}/{{userId:guid}}";
 
         private const string user = "user";
+        
+        public const string HandleEquipmentChat = $"equipmentChat";
     }
 
     public static class Chats
