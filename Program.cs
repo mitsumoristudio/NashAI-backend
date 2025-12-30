@@ -104,7 +104,11 @@ builder.Services.AddHttpClient<ProjectApiClients>(client =>
  client.BaseAddress = new Uri(azureBaseUrl);
 });
 
-// builder.Services.AddHttpClient<ProjectApiClients>();
+// Add EquipmentApiClients
+builder.Services.AddHttpClient<EquipmentApiClient>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5000/");
+});
 
 // builder.Services.AddScoped<RpcController>();
 

@@ -25,4 +25,5 @@ public class EquipmentResponse
     public Guid? UserId { get; set; }
     
     public DateTime? CreatedAt { get; set; }
+    
 }
