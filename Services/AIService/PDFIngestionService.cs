@@ -1,4 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using NashAI_app.Dto;
 using Pgvector;
+using Project_Manassas.Database;
 using UglyToad.PdfPig;
 
 namespace NashAI_app.Services;
@@ -8,13 +11,15 @@ public class PDFIngestionService
     private readonly IEmbeddingService _embeddingService;
     private readonly IVectorSearchService _vectorSearchService;
     private readonly ILogger<PDFIngestionService> _logger;
+    private readonly ProjectContext _projectContext;
 
     public PDFIngestionService(IEmbeddingService embeddingService, IVectorSearchService vectorSearchService,
-        ILogger<PDFIngestionService> logger)
+        ILogger<PDFIngestionService> logger, ProjectContext projectContext)
     {
         _embeddingService = embeddingService;
         _vectorSearchService = vectorSearchService;
         _logger = logger;
+        _projectContext = projectContext;
     }
 
     public async Task IngestPdfAsync(string filePath, string documentId)
@@ -51,6 +56,31 @@ public class PDFIngestionService
             _logger.LogInformation($"Ingesting {chunks.Count} chunks");
         }
         await _vectorSearchService.UpdateVectorAsync(chunks);
+    }
+
+    public async Task<IReadOnlyList<IngestedPdfDto>> GetIngestedPdfsAsync()
+    {
+        return await _projectContext.DocumentEmbeddings
+            .AsNoTracking()
+            .GroupBy(d => d.DocumentId)
+            .Select(document => new IngestedPdfDto
+            {
+                DocumentId = document.Key,
+                ChunkCount = document.Count(),
+                PageCount = document.Select(x => x.PageNumber).Distinct().Count()
+            })
+            .OrderByDescending(x => x.ChunkCount)
+            .ToListAsync();
+    }
+
+    public async Task<int> DeleteByDocumentIdAsync(string documentId)
+    {
+        if (string.IsNullOrWhiteSpace(documentId))
+            throw new ArgumentException("Document ID cannot be null or empty", nameof(documentId));
+
+        return await _projectContext.DocumentEmbeddings
+            .Where(d => d.DocumentId == documentId)
+            .ExecuteDeleteAsync();
     }
     
     private static IEnumerable<string> SplitIntoChunks(string text, int maxWords)

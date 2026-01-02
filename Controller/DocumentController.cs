@@ -54,4 +54,29 @@ public class DocumentController: ControllerBase
             DocumentId = documentId
         });
     }
+
+    [HttpGet(ApiEndPoints.Pdfs.LIST_PDF)]
+    public async Task<IActionResult> ListIngestedPdfs()
+    {
+        var results = await _pdfingestionService.GetIngestedPdfsAsync();
+        return Ok(results);
+    }
+
+    [HttpDelete(ApiEndPoints.Pdfs.DELETE_PDF)]
+    public async Task<IActionResult> DeletePdfAsync([FromRoute] string documentId)
+    {
+        var deletedCount = await _pdfingestionService.DeleteByDocumentIdAsync(documentId);
+
+        if (deletedCount == 0)
+        {
+            return NotFound(new { Message = "Document not found" });
+        }
+
+        return Ok(new
+        {
+            Message = "PDF deleted successfully",
+            DocumentId = documentId,
+            DeletedCounts = deletedCount
+        });
+    }
 }

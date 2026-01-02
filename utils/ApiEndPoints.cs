@@ -104,5 +104,9 @@ public class ApiEndPoints
 
         public const string INGEST_PDF = $"ingest";
         
+        public const string LIST_PDF = $"list_pdf";
+        
+        public const string DELETE_PDF = $"delete_pdf";
+        
     }
 }
