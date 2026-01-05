@@ -45,6 +45,19 @@ public class DocumentController: ControllerBase
         
         await _pdfingestionService.IngestPdfAsync(tempPath, documentId);
         
+        // Persist PDF for preview
+        var pdfStorage = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "PdfStorage");
+        
+        Directory.CreateDirectory(pdfStorage);
+
+        var finalPath = Path.Combine(
+            pdfStorage,
+            Path.GetFileName(documentId)
+        );
+        
+        System.IO.File.Copy(tempPath, finalPath, overwrite: true);
         System.IO.File.Delete(tempPath);
         
         return Ok(new
@@ -62,6 +75,29 @@ public class DocumentController: ControllerBase
         return Ok(results);
     }
 
+    [HttpGet(ApiEndPoints.Pdfs.PREVIEW_PDF)]
+    public async Task<IActionResult> PreviewPdf(string documentId)
+    {
+        var safeName = Path.GetFileName(documentId);
+
+        if (!safeName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+        {
+            return BadRequest("Pdf file name must end with '.pdf'");
+        }
+        
+        var path = Path.Combine("PdfStorage", safeName);
+
+        if (!System.IO.File.Exists(path))
+        {
+            return NotFound();
+        }
+
+        return File(
+            new FileStream(path, FileMode.Open, FileAccess.Read),
+            "application/pdf");
+    }
+    
+
     [HttpDelete(ApiEndPoints.Pdfs.DELETE_PDF)]
     public async Task<IActionResult> DeletePdfAsync([FromRoute] string documentId)
     {
@@ -71,6 +107,11 @@ public class DocumentController: ControllerBase
         {
             return NotFound(new { Message = "Document not found" });
         }
+        
+        // Delete Stored PDF
+        var path = Path.Combine("PdfStorage", documentId);
+        if (System.IO.File.Exists(path))
+            System.IO.File.Delete(path);
 
         return Ok(new
         {
