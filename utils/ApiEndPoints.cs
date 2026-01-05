@@ -106,9 +106,11 @@ public class ApiEndPoints
         
         public const string LIST_PDF = $"list_pdf";
         
-        public const string DELETE_PDF = $"{{documentId}}";
+        public const string DELETEEMBEDDING_PDF = $"{{documentId}}";
 
         public const string PREVIEW_PDF = $"preview/{{documentId}}";
+        
+        public const string DELETE_PDF = $"preview/{{documentId}}";
 
     }
 }

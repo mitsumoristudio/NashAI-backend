@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NashAI_app.Dto;
 using Pgvector;
 using Project_Manassas.Database;
+using Project_Manassas.Model;
 using UglyToad.PdfPig;
 
 namespace NashAI_app.Services;
@@ -73,13 +74,23 @@ public class PDFIngestionService
             .ToListAsync();
     }
 
-    public async Task<int> DeleteByDocumentIdAsync(string documentId)
+    public async Task<int> DeleteByDocumentEmbeddingIdAsync(string documentId)
     {
         if (string.IsNullOrWhiteSpace(documentId))
             throw new ArgumentException("Document ID cannot be null or empty", nameof(documentId));
 
         return await _projectContext.DocumentEmbeddings
             .Where(d => d.DocumentId == documentId)
+            .ExecuteDeleteAsync();
+    }
+
+    public async Task<int> DeleteByDocumentPdfAsync(string documentId)
+    {
+        if (string.IsNullOrWhiteSpace(documentId))
+            throw new ArgumentException("Document ID cannot be null or empty", nameof(documentId));
+        
+        return await _projectContext.PdfFiles
+            .Where(p => p.DocumentId == documentId)
             .ExecuteDeleteAsync();
     }
     
@@ -90,5 +101,31 @@ public class PDFIngestionService
         {
             yield return string.Join(' ', words.Skip(i).Take(maxWords));
         }
+    }
+
+    public async Task SavePdfFileAsync(string documentId, string fileName, byte[] data)
+    {
+        var createPdf = new PdfFileEntity
+        {
+            Id = Guid.NewGuid(),
+            DocumentId = documentId,
+            FileName = fileName,
+            Data = data,
+        };
+        
+        _projectContext.PdfFiles.Add(createPdf);
+        
+        await _projectContext.SaveChangesAsync();
+    }
+
+    public async Task<byte[]?> GetPdfAsync(string documentId)
+    {
+        var pdf = await _projectContext.PdfFiles
+            .AsNoTracking()
+            .Where(p => p.DocumentId == documentId)
+            .Select(p => p.Data)
+            .FirstOrDefaultAsync();
+        
+        return pdf;
     }
 }

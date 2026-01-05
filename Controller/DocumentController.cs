@@ -31,8 +31,14 @@ public class DocumentController: ControllerBase
 
         var tempPath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}_{formFile.FileName}");
         
+        // Read PDF bytes
+        byte[] pdfBytes;
+        using (var stream = new MemoryStream())
+        {
+            await formFile.CopyToAsync(stream);
+            pdfBytes = stream.ToArray();
+        }
         
-
         await using (var fileStream = new FileStream(tempPath, FileMode.Create))
         {
             await formFile.CopyToAsync(fileStream);
@@ -43,22 +49,14 @@ public class DocumentController: ControllerBase
         _logger.LogInformation("Received formFile: {HasFile}, documentId: {DocumentId}", 
             formFile != null, documentId);
         
+        // Store PDF binary
+        await _pdfingestionService.SavePdfFileAsync(
+            documentId: documentId,
+            fileName: formFile.FileName,
+            data: pdfBytes);
+        
+        // Ingest text + Embedding
         await _pdfingestionService.IngestPdfAsync(tempPath, documentId);
-        
-        // Persist PDF for preview
-        var pdfStorage = Path.Combine(
-            Directory.GetCurrentDirectory(),
-            "PdfStorage");
-        
-        Directory.CreateDirectory(pdfStorage);
-
-        var finalPath = Path.Combine(
-            pdfStorage,
-            Path.GetFileName(documentId)
-        );
-        
-        System.IO.File.Copy(tempPath, finalPath, overwrite: true);
-        System.IO.File.Delete(tempPath);
         
         return Ok(new
         {
@@ -78,44 +76,47 @@ public class DocumentController: ControllerBase
     [HttpGet(ApiEndPoints.Pdfs.PREVIEW_PDF)]
     public async Task<IActionResult> PreviewPdf(string documentId)
     {
-        var safeName = Path.GetFileName(documentId);
-
-        if (!safeName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-        {
-            return BadRequest("Pdf file name must end with '.pdf'");
-        }
-        
-        var path = Path.Combine("PdfStorage", safeName);
-
-        if (!System.IO.File.Exists(path))
-        {
-            return NotFound();
-        }
-
-        return File(
-            new FileStream(path, FileMode.Open, FileAccess.Read),
-            "application/pdf");
+      var pdfBytes = await _pdfingestionService.GetPdfAsync(documentId);
+      
+      if (pdfBytes == null)
+      {
+          return NotFound();
+      }
+      return File(pdfBytes, "application/pdf", $"{documentId}.pdf");
     }
-    
 
     [HttpDelete(ApiEndPoints.Pdfs.DELETE_PDF)]
-    public async Task<IActionResult> DeletePdfAsync([FromRoute] string documentId)
+    public async Task<IActionResult> DeletePdf([FromRoute] string documentId)
     {
-        var deletedCount = await _pdfingestionService.DeleteByDocumentIdAsync(documentId);
+        var deleteCount = await _pdfingestionService.DeleteByDocumentPdfAsync(documentId);
+
+        if (deleteCount == 0)
+        {
+            return NotFound(new {Message = $"Document {documentId} was not found."});
+        }
+        
+        return Ok( new
+        {
+            Message = "PDF was deleted successfully",
+            DocumentId = documentId,
+            DeleteCount = deleteCount
+        });
+    }
+    
+    
+    [HttpDelete(ApiEndPoints.Pdfs.DELETEEMBEDDING_PDF)]
+    public async Task<IActionResult> DeleteEmbeddingPdfAsync([FromRoute] string documentId)
+    {
+        var deletedCount = await _pdfingestionService.DeleteByDocumentEmbeddingIdAsync(documentId);
 
         if (deletedCount == 0)
         {
             return NotFound(new { Message = "Document not found" });
         }
         
-        // Delete Stored PDF
-        var path = Path.Combine("PdfStorage", documentId);
-        if (System.IO.File.Exists(path))
-            System.IO.File.Delete(path);
-
         return Ok(new
         {
-            Message = "PDF deleted successfully",
+            Message = "PDF embedding was deleted successfully",
             DocumentId = documentId,
             DeletedCounts = deletedCount
         });

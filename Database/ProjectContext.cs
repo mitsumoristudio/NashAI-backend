@@ -24,6 +24,9 @@ public class ProjectContext(DbContextOptions<ProjectContext> options): DbContext
     // New vector-related tables
     public DbSet<DocumentEmbeddingVB> DocumentEmbeddings => Set<DocumentEmbeddingVB>();
     
+    // Store entire PDF
+    public DbSet<PdfFileEntity> PdfFiles => Set<PdfFileEntity>();
+    
     // public DbSet<ChatSessionVBModel> ChatSessions => Set<ChatSessionVBModel>();
     //
     // public DbSet<ChatMessageVBModel> ChatMessages => Set<ChatMessageVBModel>();
