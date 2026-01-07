@@ -1,3 +1,4 @@
+using System.Net.WebSockets;
 using Microsoft.Extensions.AI;
 using NashAI_app.Services.Ingestion;
 using Project_Manassas.Database;
@@ -6,6 +7,8 @@ using DotNetEnv;
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.CognitiveServices.Speech;
+using Microsoft.CognitiveServices.Speech.Audio;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 using Nash_Manassas.Hub;
@@ -144,6 +147,7 @@ builder.Services.AddAuthentication(opt =>
     };
 });
 
+
 // --- Database: Neon/Postgres with pgvector ---
 var neonConnection = Environment.GetEnvironmentVariable("NEON_API_KEY");
 builder.Services.AddDbContext<ProjectContext>(options =>
@@ -173,6 +177,9 @@ builder.Services.AddEmbeddingGenerator<string, Embedding<float>>(sp =>
 
 // --- Data Ingestion Service ---
 builder.Services.AddScoped<DataIngestorVB>();
+
+// Azure Speech Service
+builder.Services.AddScoped<AzureSpeechService>();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -208,6 +215,65 @@ app.UseAuthorization();
 
 
 app.MapControllers();
+
+app.UseWebSockets();
+
+// Call Speech service through Azure Voice Service
+app.Map("/ws/speech", async context =>
+{
+    var ws = await context.WebSockets.AcceptWebSocketAsync();
+    var buffer = new byte[4096];
+
+    var speechService = context.RequestServices.GetRequiredService<AzureSpeechService>();
+
+    try
+    {
+        while (ws.State == WebSocketState.Open)
+        {
+            var result = await ws.ReceiveAsync(buffer, CancellationToken.None);
+
+            // 🔴 Client released mic
+            if (result.MessageType == WebSocketMessageType.Text)
+            {
+                var msg = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                if (msg.Contains("END"))
+                    break;
+            }
+
+            // 🎙️ Audio chunk → push to Azure
+            if (result.MessageType == WebSocketMessageType.Binary)
+            {
+                var pcm = new byte[result.Count];
+                Buffer.BlockCopy(buffer, 0, pcm, 0, result.Count);
+                speechService.PushAudio(pcm);
+            }
+        }
+
+        // ✅ Final recognition AFTER mic released
+        var text = await speechService.StopAndRecognizeAsync();
+
+        if (!string.IsNullOrWhiteSpace(text))
+        {
+            var response = Encoding.UTF8.GetBytes(text);
+            await ws.SendAsync(
+                response,
+                WebSocketMessageType.Text,
+                true,
+                CancellationToken.None);
+        }
+    }
+    finally
+    {
+        if (ws.State != WebSocketState.Closed)
+        {
+            await ws.CloseAsync(
+                        WebSocketCloseStatus.NormalClosure,
+                        "Speech complete",
+                        CancellationToken.None);
+        }
+        
+    }
+});
 
 app.MapHub<ChatHub>("/chatHub");
 
