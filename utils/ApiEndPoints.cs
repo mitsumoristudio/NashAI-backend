@@ -82,7 +82,9 @@ public class ApiEndPoints
         public const string SUMMARY_SEMANTIC_SEARCH_URLS = $"summary";
         
         public const string SUMMARY_SAFETY_SEARCH_URLS = $"safety_search";
-        
+
+        public const string SPEECH_WS_URL = "/ws/speech";
+
         //   public const string GET_CONVERSATION_HISTORY = $"history/{{sessionid}}";
     }
     
@@ -112,5 +114,12 @@ public class ApiEndPoints
         
         public const string DELETE_PDF = $"preview/{{documentId}}";
 
+    }
+
+    public static class Speech
+    {
+        public const string speechBase = $"{ApiBase}/speech";
+
+        public const string TEXT_TO_SPEECH = $"tts";
     }
 }

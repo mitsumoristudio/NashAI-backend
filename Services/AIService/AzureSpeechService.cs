@@ -83,4 +83,5 @@ public class AzureSpeechService : IDisposable
         _recognizer.Dispose();
         _pushStream.Dispose();
     }
+    
 }

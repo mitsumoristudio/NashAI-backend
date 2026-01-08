@@ -98,13 +98,13 @@ builder.Services.AddApplicationServices();
 builder.Services.AddHttpClient<ProjectApiClients>(client =>
 {
  //   {/* For Local Development*/}
-// client.BaseAddress = new Uri("http://localhost:5000/");
+client.BaseAddress = new Uri("http://localhost:5000/");
  
  //{/* For Production Deployment*/}
- string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")
-     ?? "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
- 
- client.BaseAddress = new Uri(azureBaseUrl);
+ // string azureBaseUrl = Environment.GetEnvironmentVariable("AZURE_WEB_API")
+ //     ?? "https://nashai2-b2c3hhgwdwepcafk.eastus2-01.azurewebsites.net";
+ //
+ // client.BaseAddress = new Uri(azureBaseUrl);
 });
 
 // Add EquipmentApiClients
@@ -178,8 +178,11 @@ builder.Services.AddEmbeddingGenerator<string, Embedding<float>>(sp =>
 // --- Data Ingestion Service ---
 builder.Services.AddScoped<DataIngestorVB>();
 
-// Azure Speech Service
+// Azure Speech Service Speech to Text
 builder.Services.AddScoped<AzureSpeechService>();
+
+// Azure Speech Service Text to Speech
+builder.Services.AddScoped<AzureTexttoSpeechService>();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -219,7 +222,7 @@ app.MapControllers();
 app.UseWebSockets();
 
 // Call Speech service through Azure Voice Service
-app.Map("/ws/speech", async context =>
+app.Map(ApiEndPoints.Chats.SPEECH_WS_URL, async context =>
 {
     var ws = await context.WebSockets.AcceptWebSocketAsync();
     var buffer = new byte[4096];
